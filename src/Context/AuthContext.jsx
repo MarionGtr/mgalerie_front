@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
 const AuthContext = createContext({
-    isAuthentificated: false,
-    setIsAuthentificated: () => {},
+    isAuthenticated: false,
+    setIsAuthenticated: () => {},
     user : {},
     setUser : () => {} 
     //roles : [],

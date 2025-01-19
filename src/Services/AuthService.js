@@ -14,8 +14,9 @@ function getMailUser(){
     const token = localStorage.getItem('token')
     if(token && isValid){
         const decodedToken = jwtDecode(token)
-        return  {
-            email : decodedToken.email
+        return {
+            email : decodedToken.email,
+            id: decodedToken.id
         }
     }else{
         return {}
@@ -33,6 +34,7 @@ function isValid() {
         } else {
             setToken()
         } return true
+        //vérifie si le token est valide
     } else {
         logout()
         return false
