@@ -24,7 +24,7 @@ const LoginPage = () => {
             axios.defaults.headers['Authorization'] = `Bearer ${response.data.token}`
             localStorage.setItem('token', response.data.token)
             setIsAuthenticated(true)
-            //Navigate('/profil')
+            // Navigate('/profil')
             console.log(response.data)
         } catch (error) {
             console.log(error)
@@ -34,7 +34,7 @@ const LoginPage = () => {
 
     return <Container className='d-flex flex-column justify-content-center align-items-center mt-5'>
 
-        <h1>Formulaire d'inscription</h1>
+        <h1>Connexion</h1>
 
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">

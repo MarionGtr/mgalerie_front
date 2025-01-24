@@ -1,4 +1,10 @@
-:root{
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@100..900&display=swap');
+/* font-family: 'Lexend Mega', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+/* font-family: 'Lexend Deca', sans-serif; */
+
+
+:root {
     --rouge: #cd3333;
     --bleu: #4019b6;
     --jaune: #eee25e;
@@ -9,89 +15,155 @@
 
 /* ------------------NAVBAR------------------ */
 
-.Navbar{
+.Navbar {
     display: flex;
     flex-direction: row;
     padding: 3rem;
     background-color: var(--rouge);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- 
+
 }
 
-.navbar-titre{
+.navbar-titre {
     text-decoration: none;
     color: var(--noir);
     font-size: 2vw;
     font-weight: bold;
     justify-content: flex-start;
     margin-left: 2vw;
+    font-family: 'Lexend Mega', sans-serif;
 }
 
-.navbar-txt{
+.navbar-titre:hover {
+    color: white;
+    scale: 1.6;
+    transition: 0.5s;
+}
+
+.navbar-txt {
     text-decoration: none;
     color: var(--blanc);
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 1.2vw;
+
 }
 
-.nav-txt{
+.navbar-txt:hover {
+    color: var(--noir);
+    scale: 1.1;
+    transition: 0.5s;
+}
+
+.nav-txt {
     width: 100%;
     display: flex;
     justify-content: end;
-    gap:2vw;
+    gap: 2vw;
     margin-right: 2vw;
-    
+    font-family: 'Lexend Deca', sans-serif;
 }
 
-.nav-profil{
+.nav-profil {
     display: flex;
-    gap:1vw;
+    gap: 1vw;
     align-items: center;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 1.2vw;
 }
 
-.deconnexion{
+.deconnexion {
     color: var(--blanc);
     padding: 0.5rem;
-   background-color: var(--rouge) !important;
-   border:#ffffff !important;
+    background-color: var(--rouge) !important;
+    border: #ffffff !important;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 1.2vw !important;
+}
+
+.deconnexion:hover {
+    color: var(--noir) !important;
+    scale: 1.1;
+    transition: 0.5s;
+}
+
+/* --------------BLOC-COURANT-------------- */
+
+.body-homepage {
+    display: flex;
+    flex-direction: row;
+}
+
+.bloc-courant {
+    background-color: var(--jaune);
+    min-height: 100vh;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 2vw;
+    gap: 3vh;
+
+}
+
+.bloc-courant h1 {
+    display: flex;
+    flex-direction: row;
+    margin-top: 14vh;
+    font-size: 2rem;
+    color: var(--noir);
+    font-family: 'Lexend Deca', sans-serif;
+    /* margin-bottom: 8vh; */
+}
+
+.bloc-courant h3 {
+    padding: 0.5rem;
+    font-size: 1.4rem;
+    color: var(--noir);
+    text-decoration: none;
+    font-family: 'Lexend Deca', sans-serif;
+    background-color: var(--jaune);
+    border: none;
+    align-items: flex-start;
+
+}
+
+.bloc-courant h3:hover {
+    cursor: pointer;
+    border-bottom: #1e1e1e 3px solid;
+
+}
+
+.bloc-principal {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 80%;
+    position: relative;
+    padding: 4vw;
+    gap: 4vw;
+    justify-content: center;
+    align-items: center;
 
 
+
+}
+
+/* ---------CARD--------------------- */
+
+.card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    max-width: 30vw;
+}
+
+.card:hover{
     
 }
 
-/* ------BLOC-COURANT-------------- */
-
-.body-homepage{
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    margin-bottom: 0px;
-
+.card-img{
+    max-width: 30vw;
+    height: auto;
+    max-width: auto;
 }
-
-.bloc-courant{
-    background-color: #eee25e;
-    width: 20%;
-    height:100vh;
-
-}
-
-.bloc-courant h1{
-    text-align: flex-start;
-    padding: 1rem;
-    margin-top: 10vh;
-    font-size: 1.5rem;
-    color: var(--noir);
-}
-
-.bloc-courant li{
-    list-style-type: none;
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    color: var(--noir);
-    text-decoration: none;
-}
-
-.bloc-principal{
-    width:80%;
-    height:auto;
-}
-

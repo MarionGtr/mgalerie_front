@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import AuthContext from '../Context/AuthContext';
 import { Button } from 'react-bootstrap';
+import AuthService from '../Services/AuthService';
 
 
 const NavBar = () => {
@@ -19,7 +20,7 @@ const NavBar = () => {
     <Navbar className="Navbar">
      
         <Navbar.Brand>
-          <Link className="navbar-titre" to={"/"}>MGALERIE</Link>
+          <Link className="navbar-titre" to={"/"}>M.GALERIE</Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
