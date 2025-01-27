@@ -15,7 +15,7 @@ const StyleDetails = () => {
     const fetchStyleByID = async () => {
         try {
             const response = await StyleService.StyleByID(id)
-            console.log("API:", response)
+            // console.log("API:", response)
             setStyle(response.data)
         } catch (error) {
             console.log(error);
@@ -24,7 +24,7 @@ const StyleDetails = () => {
     const fetchArtworkByStyle = async () => {
         try {
             const response = await PossederService.getArtworkByStyle(id)
-            console.log("API:", response)
+            // console.log("API:", response)
             setByStyle(response.data)
         } catch (error) {
             console.log(error);
@@ -34,9 +34,8 @@ const StyleDetails = () => {
     const fetchArtworkImages = async () => {
         try {
             const response = await ArtworkService.getAllImages();
+            // console.log(response.data);
             setArtworkImages(response.data);
-            console.log(response.data.images);
-
         } catch (error) {
             console.error('Erreur lors de la récupération des images :', error);
         }
@@ -45,20 +44,21 @@ const StyleDetails = () => {
 
     useEffect(() => {
         fetchStyleByID(),
-        fetchArtworkByStyle()
+            fetchArtworkByStyle()
         fetchArtworkImages()
     }, [])
 
     return <>
-        <h1>page détails courants artistiques</h1>
-
-        <h1>{style.style}</h1>
-        <p>{style.style_description}</p>
-        <p>Période : {style.period}</p>
-
-        {byStyle && byStyle.map((image, index) => (
-            <ArtworkCard key={index} artwork={image} />
-        ))}
+        <div>
+            <h1>{style.style}</h1>
+            <h3>{style.style_description}</h3>
+            <h3>Période : {style.period}</h3>
+        </div>
+        <div>
+            {byStyle && byStyle.map((image, index) => (
+                <ArtworkCard key={index} artwork={image} />
+            ))}
+        </div>
     </>
 }
 

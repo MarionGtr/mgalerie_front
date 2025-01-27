@@ -26,8 +26,9 @@ const ArtworkDetailsPage = () => {
 
 
     return <>
-        <div>
-            <div className="details-gauche"> 
+        <div className="body-details">
+
+            <div className="details-gauche">
                 <div className="art-title">
                     <h1>{artwork.title}</h1>
                 </div>
@@ -37,17 +38,16 @@ const ArtworkDetailsPage = () => {
                 <div className="art-description">
                     <h3>{artwork.description}</h3>
                 </div>
-                <div>
+                <div className="art-size">
                     <h3>Dimensions : {artwork.size}</h3>
                 </div>
-                <div>
+                <div className="art-creation_date">
                     <h3>Crée en {artwork.creation_date}</h3>
                 </div>
             </div>
-            <div classeName="details-droite">
-                <div className="art-img">
-                    <img className="card-img" src={config.url + "/images/" + artwork.image_url} alt={artwork.title} />
-                </div>
+
+            <div className="details-droite">
+                <img className="card-img" src={config.url + "/images/" + artwork.image_url} alt={artwork.title} />
             </div>
         </div>
 

@@ -3,7 +3,6 @@ import StyleService from "../Services/StyleService";
 import { useNavigate } from "react-router-dom";
 import ArtworkCard from "../Components/ArtworkCard";
 import ArtworkService from "../Services/ArtworkService";
-import config from "../config/url"
 
 const HomePage = () => {
     const [styles, setStyles] = useState([]);
@@ -22,7 +21,7 @@ const HomePage = () => {
     const fetchStyle = async () => {
         try {
             const response = await StyleService.allStyle();
-            console.log("Réponse API:", response.data);
+            // console.log("Réponse API:", response.data);
             setStyles(response.data);
         } catch (error) {
             console.error(error);
@@ -33,13 +32,12 @@ const HomePage = () => {
         try {
             const response = await ArtworkService.getAllImages();
             setArtworkImages(response.data)
-            console.log(response.data);
+            // console.log(response.data);
         } catch (error) {
             console.error('Erreur lors de la récupération des images :', error);
         }
     };
 
-    console.log(artworkImages);
 
     useEffect(() => {
         fetchStyle();
@@ -64,9 +62,8 @@ const HomePage = () => {
                         key={index}
                         artwork={image}
                         onClick={() => {
-                            console.log("ID cliqué :", image.id_artwork); // Débogage
-                            navigate(`/artworkByID/${image.id_artwork}`);
-
+                            // console.log("ID cliqué :", image.id_artwork); 
+                            navigate("/artworkByID/" + image.id_artwork);
                         }}
                         />
                     ))}

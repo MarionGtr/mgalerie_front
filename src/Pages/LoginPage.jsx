@@ -25,7 +25,7 @@ const LoginPage = () => {
             localStorage.setItem('token', response.data.token)
             setIsAuthenticated(true)
             // Navigate('/profil')
-            console.log(response.data)
+            // console.log(response.data)
         } catch (error) {
             console.log(error)
 

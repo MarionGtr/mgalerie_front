@@ -12,6 +12,7 @@ import AuthContext from './Context/AuthContext'
 import AuthService from './Services/AuthService'
 import Navbar from './Components/Navbar'
 import RouteSecu from './Components/RouteSecu'
+import Footer from './Components/Footer'
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
 
           </Route>
         </Routes>
-        {/* <Footer/> */}
+        <Footer/>
       </AuthContext.Provider>
     </BrowserRouter>
   )
