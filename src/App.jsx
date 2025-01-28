@@ -13,6 +13,7 @@ import AuthService from './Services/AuthService'
 import Navbar from './Components/Navbar'
 import RouteSecu from './Components/RouteSecu'
 import Footer from './Components/Footer'
+import UserPage from './Pages/UserPage'
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/styleByID/:id" element={<StyleDetailsPage />} />
           <Route element={<RouteSecu />}>
           <Route path="/profil" element={<ProfilPage />} />
+          <Route path="/user" element={<UserPage />} />
 
           </Route>
         </Routes>

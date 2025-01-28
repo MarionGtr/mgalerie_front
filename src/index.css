@@ -2,6 +2,7 @@
 /* font-family: 'Lexend Mega', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
 /* font-family: 'Lexend Deca', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200&display=swap');
 
 
 :root {
@@ -275,9 +276,10 @@
 .profil-body{
     display: flex;
     flex-direction: row ;
-
-
+    font-family: 'Lexend Deca', sans-serif;
 }
+
+
 
 .profil-info{
 
@@ -301,4 +303,77 @@
     width: 75%;
     position: relative;
     gap: 4vw;
+}
+
+/* -------------------MON COMPTE------------------------------------------- */
+
+.body-user{
+    display: flex;
+    width: 100%;
+    font-family: 'Lexend Deca', sans-serif;
+    color:var(--noir)
+}
+
+.bloc-user{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--rouge);
+    width:60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 10vh;
+    padding: 2vw;
+    border-radius: 10px;
+    
+}
+
+.mon-compte{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 6vh;
+    color: #1e1e1e;
+}
+
+.ligne-moncompte{
+    display: flex;
+    flex-direction: row ;
+    justify-content: space-between;
+    padding:0;
+    border-bottom: #8f2222 1px solid;
+    font-family: "Lexend", serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+
+}
+
+.ligne-moncompte h2{
+    display: flex;
+    padding: 0;
+}
+
+.ligne-moncompte img{
+    width:2vw;
+    height:auto;
+
+}
+
+.user-api{
+    color: #ffffff;
+    display: flex;
+    justify-content: flex-start;
+    width: 30vw;
+}
+
+.user-libelle{
+    display: flex;
+    justify-content: flex-start;
+    width:8vw;
+}
+
+.ligne-mdp{
+    display: flex;
+    flex-direction: row;
+    gap:2vw;
+    justify-content: space-between;
 }

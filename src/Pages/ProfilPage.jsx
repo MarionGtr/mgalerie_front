@@ -3,12 +3,18 @@ import UserService from "../Services/UserService";
 import ArtworkCard from "../Components/ArtworkCard";
 import AuthContext from "../Context/AuthContext";
 import LikeService from "../Services/LikeService";
+import { Button } from "react-bootstrap";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const ProfilPage = () => {
     const { user: authenticatedUser, isAuthenticated } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [likedArtworks, setLikedArtworks] = useState([]);
+    const navigate = useNavigate();
 
+    
     //infos
     const fetchUser = async () => {
         try {
@@ -45,6 +51,7 @@ const ProfilPage = () => {
                 <h2>Email : {user.email}</h2>
                 <h2>Prénom : {user.first_name}</h2>
                 <h2>Nom : {user.last_name}</h2>
+                <Button variant="light" onClick={() => navigate("/user")}>Voir plus</Button>
             </div>
 
             <div className="profil-like">

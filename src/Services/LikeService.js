@@ -7,8 +7,12 @@ function getLikes() {
 
 function addLike(id_artwork) {
     return axios.post(config.url+ "/like/addLike", {id_artwork})
-
 }
-export default {
-    getLikes, addLike
+
+function deleteLike(id_artwork) {
+    return axios.post(config.url+ "/like/deleteLike", {id_artwork})
+}
+
+    export default {
+    getLikes, addLike, deleteLike
 }

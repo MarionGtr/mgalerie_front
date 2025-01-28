@@ -4,17 +4,22 @@ import { Form } from "react-bootstrap"
 import AuthContext from "../Context/AuthContext"
 import UserService from "../Services/UserService"
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 const LoginPage = () => {
+   
 
     const [user, setUser] = useState({})
     const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext)
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setUser({ ...user, [name]: value })
 
     }
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -24,7 +29,7 @@ const LoginPage = () => {
             axios.defaults.headers['Authorization'] = `Bearer ${response.data.token}`
             localStorage.setItem('token', response.data.token)
             setIsAuthenticated(true)
-            // Navigate('/profil')
+            navigate('/profil')
             // console.log(response.data)
         } catch (error) {
             console.log(error)
