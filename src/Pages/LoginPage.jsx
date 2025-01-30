@@ -55,9 +55,13 @@ const LoginPage = () => {
                 <Form.Control name="password" type="password" placeholder="Entrer email" required={true} value={user.password} onChange={handleChange} />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="outline-dark" type="submit">
                 Se connecter
             </Button>
+            <Button variant="outline-dark" type="submit">
+                Mot de passe oublié
+            </Button>
+
         </Form>
     </Container>
 

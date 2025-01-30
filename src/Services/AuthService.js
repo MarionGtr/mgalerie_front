@@ -10,18 +10,21 @@ function setToken(){
     }
 }
 
-function getMailUser(){
-    const token = localStorage.getItem('token')
-    if(token && isValid){
-        const decodedToken = jwtDecode(token)
-        return {
-            email : decodedToken.email,
+function getMailUser() {
+    const token = localStorage.getItem("token");
+    if (token && isValid()) {
+        const decodedToken = jwtDecode(token);
+        const user = {
+            email: decodedToken.email,
             id: decodedToken.id
-        }
-    }else{
-        return {}
+        };
+        localStorage.setItem("user", JSON.stringify(user)); // Stocke l'utilisateur connecté
+        return user;
+    } else {
+        return {};
     }
 }
+
 
 function isValid() {
     const token = localStorage.getItem('token')
@@ -41,9 +44,16 @@ function isValid() {
     }
 }
 
-function logout(){
-    delete axios.defaults.headers['Authorization']
-    localStorage.removeItem('token')
+function logout() {
+    delete axios.defaults.headers["Authorization"];
+    localStorage.removeItem("token");
+    localStorage.removeItem("user"); // Supprime l'utilisateur connecté
+    Object.keys(localStorage).forEach((key) => {
+        if (key.startsWith("likedArtworks_")) {
+            localStorage.removeItem(key);
+        }
+    });
 }
+
 
 export default { isValid, setToken, getMailUser, logout }

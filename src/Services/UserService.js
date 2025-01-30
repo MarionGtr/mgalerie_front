@@ -16,6 +16,10 @@ function profil() {
     
 }
 
+function updateUser(id, updateUser){
+    return axios.post(config.url + '/user/updateUser/' + id, updateUser)
+}
+
 export default { 
-    signin, login, profil
+    signin, login, profil, updateUser
  }

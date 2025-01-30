@@ -89,7 +89,7 @@
 
 /* --------------FOOTER--------------------------------------------------------- */
 
-.footer{
+.footer {
     background-color: var(--bleu);
     display: flex;
     justify-content: center;
@@ -99,11 +99,11 @@
     align-items: center;
     position: fixed;
     bottom: 0px;
-    width:100%;
+    width: 100%;
     margin-top: auto;
 }
 
-.footer h3{
+.footer h3 {
     font-family: 'Lexend Deca', sans-serif;
     font-size: 1vw;
 }
@@ -162,7 +162,7 @@
     width: 80%;
     position: relative;
     padding: 4vw;
-    padding-top:2vw;
+    padding-top: 2vw;
     gap: 4vw;
     justify-content: center;
     align-items: center;
@@ -271,63 +271,91 @@
     align-items: center;
 }
 
-/* ----------PROFIL--------------------------------------------------- */
+/* ----------PROFIL--PARTIE INFO------------------------------ */
 
-.profil-body{
+.profil-body {
     display: flex;
-    flex-direction: row ;
+    flex-direction: row-reverse;
     font-family: 'Lexend Deca', sans-serif;
+
 }
 
-
-
-.profil-info{
+.profil-info {
 
     background-color: var(--rouge);
     min-height: 100vh;
     width: 25%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding-left: 2vw;
     gap: 3vh;
     color: var(--blanc);
     padding-top: 2vw;
+    align-items: center;
 
 }
 
-.profil-like{
+.profil-info h1 {
     display: flex;
-    flex-direction: row ;
-    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.profil-info h2{
+    margin-top: 18vh;
+}
+
+.profil-info Button {
+    display: flex;
+    justify-content: center;
+    width: 6vw;
+}
+
+/* -------------PROFIL PARTIE LIKE----------------------------------------- */
+
+.profil-like {
+    display: flex;
+    flex-direction: column;
     width: 75%;
     position: relative;
     gap: 4vw;
+    margin-top: 1vw;
+    margin-left: 1vw;
+}
+
+
+.liked-artworks-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:4vw;
+    justify-content: center;
+    align-items: center;
+
 }
 
 /* -------------------MON COMPTE------------------------------------------- */
 
-.body-user{
+.body-user {
     display: flex;
     width: 100%;
     font-family: 'Lexend Deca', sans-serif;
-    color:var(--noir)
+    color: var(--noir)
 }
 
-.bloc-user{
+.bloc-user {
     display: flex;
     flex-direction: column;
-    background-color: var(--rouge);
-    width:60%;
+    background-color: #cd3333;
+    width: 60%;
     margin-left: 20%;
     margin-right: 20%;
     margin-top: 10vh;
     padding: 2vw;
     border-radius: 10px;
-    
+    box-shadow: 0 10px 20px -8px rgb(95, 93, 93) !important;
 }
 
-.mon-compte{
+.mon-compte {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -335,45 +363,74 @@
     color: #1e1e1e;
 }
 
-.ligne-moncompte{
+.mon-compte Button {
+    box-shadow: 0 10px 20px -8px rgb(95, 93, 93) !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.ligne-moncompte {
     display: flex;
-    flex-direction: row ;
+    flex-direction: row;
     justify-content: space-between;
-    padding:0;
-    border-bottom: #8f2222 1px solid;
+    padding: 0;
+    border-bottom: #8f22228c 1px solid;
     font-family: "Lexend", serif;
     font-optical-sizing: auto;
     font-weight: 200;
 
 }
 
-.ligne-moncompte h2{
+.ligne-moncompte h2 {
     display: flex;
     padding: 0;
 }
 
-.ligne-moncompte img{
-    width:2vw;
-    height:auto;
+.ligne-moncompte img {
+    width: 20px;
 
 }
 
-.user-api{
+.ligne-moncompte Button {
+    box-shadow: 0 10px 20px -8px rgba(95, 93, 93, 0.671) !important;
+    background-color: #cd3333 !important;
+    border-color: #5c1c1c !important;
+    /* padding:0.4vw !important; */
+}
+
+.user-api {
     color: #ffffff;
     display: flex;
     justify-content: flex-start;
     width: 30vw;
 }
 
-.user-libelle{
+.user-libelle {
     display: flex;
     justify-content: flex-start;
-    width:8vw;
+    width: 8vw;
+    font-family: 'Lexend Deca', sans-serif;
 }
 
-.ligne-mdp{
+.ligne-mdp {
     display: flex;
     flex-direction: row;
-    gap:2vw;
+    gap: 2vw;
     justify-content: space-between;
+}
+
+.ligne-mdp Button {
+    box-shadow: 0 10px 20px -8px rgba(95, 93, 93, 0.671) !important;
+}
+
+.form-control {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.d-flex.gap-2 {
+    display: flex;
+    gap: 0.5rem;
 }

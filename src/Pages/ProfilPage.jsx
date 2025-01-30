@@ -48,14 +48,12 @@ const ProfilPage = () => {
         <div className="profil-body">
             <div className="profil-info">
                 <h1>Profil de : {user.username}</h1>
-                <h2>Email : {user.email}</h2>
-                <h2>Prénom : {user.first_name}</h2>
-                <h2>Nom : {user.last_name}</h2>
                 <Button variant="light" onClick={() => navigate("/user")}>Voir plus</Button>
+                <h2>Derniers commentaires :</h2>
             </div>
 
             <div className="profil-like">
-                <h1>Vos œuvres préférées :</h1>
+                <h1>Mes œuvres préférées</h1>
                 {likedArtworks.length > 0 ? (
                     <div className="liked-artworks-list">
                         {likedArtworks.map((artwork) => (
