@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import UserService from '../Services/UserService';
+import { useNavigate } from 'react-router-dom';
 
 const Signin = () => {
     const [user, setUser] = useState({})
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -21,6 +24,7 @@ const Signin = () => {
 
         try {
             const response = await UserService.signin(user)
+            navigate('/profil')
             // console.log(response)
         } catch (error) {
             console.error(error)

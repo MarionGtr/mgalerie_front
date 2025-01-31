@@ -5,11 +5,15 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
-
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
     const [user, setUser] = useState({});
+    const [tempUser, setTempUser] = useState({}); //valeur temporaire lors de la saisie
     const navigate = useNavigate();
+
     const [usernameUpdate, setUsernameUpdate] = useState(false);
+    const [nameUpdate, setNameUpdate] = useState(false);
+    const [firstNameUpdate, setFirstNameUpdate] = useState(false);
+    const [lastNameUpdate, setLastNameUpdate] = useState(false);
 
     const fetchUser = async () => {
         try {
@@ -20,97 +24,142 @@ const UserPage = () => {
         }
     };
 
+
     const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
-    }
+        setTempUser({ ...tempUser, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await UserService.updateUser(user.id_user, user);
+            await UserService.updateUser(user.id_user, tempUser); //il attend tempUser car user pas encore modifié tant que pas validé
+            setUser(tempUser); // met à jour User après validation
             setUsernameUpdate(false);
-
+            setNameUpdate(false);
+            setFirstNameUpdate(false);
+            setLastNameUpdate(false);
         } catch (error) {
             console.log(error);
-
         }
-    }
+    };
+
+    const handleCancel = (toggleSetter) => {
+        setTempUser(user); // restaure la valeur initiale de user
+        toggleSetter(false); // Ferme l'input
+    };
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        if (!window.confirm("Etes-vous sûr de vouloir supprimer votre compte ?")) return;
+        try {
+            await UserService.deleteMyAccount(user.id_user);
+            setIsAuthenticated(false);
+            setUser(null);
+            navigate("/"); 
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         fetchUser();
     }, [isAuthenticated]);
 
-
-
     return <>
-
         <div className="body-user">
-
             <div className="bloc-user">
-
                 <div className="mon-compte">
                     <h1>MON COMPTE</h1>
                     <Button variant="light" onClick={() => navigate("/profil")}>Retour</Button>
                 </div>
 
                 <div className="ligne-moncompte">
-                    <div className="user-libelle"><h2>Profil de </h2></div>
-                    {usernameUpdate == false ? <>
-                        <div className="user-api">
+                    <div className="user-libelle"><h2>Profil de</h2></div>
+                    {usernameUpdate ? (
+                        <>
+                            {/* tempUser stock la valeur dans l'input sans toucher user */}
+                            <input type="text" name="username" value={tempUser.username || ""} onChange={handleChange} />
+                            <Button variant="danger" onClick={() => handleCancel(setUsernameUpdate)}>Annuler</Button>
+                            <Button variant="light" onClick={handleSubmit}>Valider</Button>
+                        </>
+                    ) : (
+                        <>
                             <h2>{user.username}</h2>
-                        </div>
-                        <Button variant="light" onClick={() => { setUsernameUpdate(true) }}>
-                            <img src="src\assets\logos\editer.png" alt="modify" />
-                        </Button>
-                    </>
-                        : <>
-                            <input type="text" name="username" value={user.username} onChange={handleChange} />
-                            <Button variant="danger" onClick={() => { setUsernameUpdate(false) }}>
-                                Annuler
+                            {/* remplie tempUser avec les valeurs actuelles avant d'ouvrir l'input */}
+                            <Button variant="light" onClick={() => { setUsernameUpdate(true); setTempUser(user); }}>
+                                <img src="src/assets/logos/editer.png" alt="modify" />
                             </Button>
-                            <Button variant="light" onClick={handleSubmit}>
-                                Valider
-                            </Button>
-                        </>}
+                        </>
+                    )}
                 </div>
 
                 <div className="ligne-moncompte">
-                    <div className="user-libelle"><h2>Email </h2></div>
-                    <div className="user-api"><h2>{user.email}</h2></div>
-                    <Button variant="light">
-                        <img src="src\assets\logos\editer.png" alt="modify" />
-                    </Button>
+                    <div className="user-libelle"><h2>Email</h2></div>
+                    {nameUpdate ? (
+                        <>
+                            <input type="text" name="email" value={tempUser.email || ""} onChange={handleChange} />
+                            <Button variant="danger" onClick={() => handleCancel(setNameUpdate)}>Annuler</Button>
+                            <Button variant="light" onClick={handleSubmit}>Valider</Button>
+                        </>
+                    ) : (
+                        <>
+                            <h2>{user.email}</h2>
+                            <Button variant="light" onClick={() => { setNameUpdate(true); setTempUser(user); }}>
+                                <img src="src/assets/logos/editer.png" alt="modify" />
+                            </Button>
+                        </>
+                    )}
                 </div>
 
                 <div className="ligne-moncompte">
                     <div className="user-libelle"><h2>Prénom</h2></div>
-                    <div className="user-api"><h2>{user.first_name}</h2></div>
-                    <Button variant="light">
-                        <img src="src\assets\logos\editer.png" alt="modify" />
-                    </Button>
+                    {firstNameUpdate ? (
+                        <>
+                            <input type="text" name="first_name" value={tempUser.first_name || ""} onChange={handleChange} />
+                            <Button variant="danger" onClick={() => handleCancel(setFirstNameUpdate)}>Annuler</Button>
+                            <Button variant="light" onClick={handleSubmit}>Valider</Button>
+                        </>
+                    ) : (
+                        <>
+                            <h2>{user.first_name}</h2>
+                            <Button variant="light" onClick={() => { setFirstNameUpdate(true); setTempUser(user); }}>
+                                <img src="src/assets/logos/editer.png" alt="modify" />
+                            </Button>
+                        </>
+                    )}
                 </div>
 
                 <div className="ligne-moncompte">
-                    <div className="user-libelle"><h2>Nom </h2></div>
-                    <div className="user-api"><h2>{user.last_name}</h2></div>
-                    <Button variant="light">
-                        <img src="src\assets\logos\editer.png" alt="modify" />
-                    </Button>
+                    <div className="user-libelle"><h2>Nom</h2></div>
+                    {lastNameUpdate ? (
+                        <>
+                            <input type="text" name="last_name" value={tempUser.last_name || ""} onChange={handleChange} />
+                            <Button variant="danger" onClick={() => handleCancel(setLastNameUpdate)}>Annuler</Button>
+                            <Button variant="light" onClick={handleSubmit}>Valider</Button>
+                        </>
+                    ) : (
+                        <>
+                            <h2>{user.last_name}</h2>
+                            <Button variant="light" onClick={() => { setLastNameUpdate(true); setTempUser(user); }}>
+                                <img src="src/assets/logos/editer.png" alt="modify" />
+                            </Button>
+                        </>
+                    )}
                 </div>
 
                 <div className="ligne-mdp">
-                    <div className="d-flex mt-3"><h2><Button variant="light" >Modifier mon mot de passe</Button></h2></div>
+                    <div className="d-flex mt-3">
+                        <h2><Button variant="light">Modifier mon mot de passe</Button></h2>
+                    </div>
                     <div className="d-flex gap-3 flex-end">
-                        <div className="d-flex mt-3"><h2><Button variant="light" >Supprimer mon compte</Button></h2></div>
+                        <div className="d-flex mt-3">
+                            <h2><Button variant="light" onClick={handleDelete}>Supprimer mon compte</Button></h2>
+                        </div>
                     </div>
                 </div>
-
-
             </div>
-
         </div>
-
     </>
-}
+};
 
 export default UserPage;

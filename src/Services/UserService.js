@@ -20,6 +20,10 @@ function updateUser(id, updateUser){
     return axios.post(config.url + '/user/updateUser/' + id, updateUser)
 }
 
+function deleteMyAccount(id){
+    return axios.post(config.url+'/user/deleteMyAccount/' + id)
+}
+
 export default { 
-    signin, login, profil, updateUser
+    signin, login, profil, updateUser, deleteMyAccount
  }
