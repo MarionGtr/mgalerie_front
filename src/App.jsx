@@ -14,6 +14,9 @@ import Navbar from './Components/Navbar'
 import RouteSecu from './Components/RouteSecu'
 import Footer from './Components/Footer'
 import UserPage from './Pages/UserPage'
+import ResetPassword from './Pages/resetPassword'
+import SendCode from './Pages/sendCode'
+
 
 
 function App() {
@@ -32,9 +35,13 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/styleByID/:id" element={<StyleDetailsPage />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
+          <Route path="/sendCode" element={<SendCode />} />
+
           <Route element={<RouteSecu />}>
           <Route path="/profil" element={<ProfilPage />} />
           <Route path="/user" element={<UserPage />} />
+
 
           </Route>
         </Routes>

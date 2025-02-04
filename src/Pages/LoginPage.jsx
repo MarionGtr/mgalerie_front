@@ -44,7 +44,7 @@ const LoginPage = () => {
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Adresse mail</Form.Label>
-                <Form.Control name="email" type="email" placeholder="Entrer email" required={true} value={user.email} onChange={handleChange} />
+                <Form.Control name="email" type="email" placeholder="Entrer email"  value={user.email} onChange={handleChange} required/>
                 <Form.Text className="text-muted">
                     Nous ne paragerons jamais votre email avec quelqu'un d'autre.
                 </Form.Text>
@@ -52,13 +52,13 @@ const LoginPage = () => {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Mot de passe</Form.Label>
-                <Form.Control name="password" type="password" placeholder="Entrer email" required={true} value={user.password} onChange={handleChange} />
+                <Form.Control name="password" type="password" placeholder="saisir mot de passe"  value={user.password} onChange={handleChange} required />
             </Form.Group>
 
             <Button variant="outline-dark" type="submit">
                 Se connecter
             </Button>
-            <Button variant="outline-dark" type="submit">
+            <Button variant="outline-dark" type="submit" onClick={() => navigate("/SendCode")}  >
                 Mot de passe oublié
             </Button>
 

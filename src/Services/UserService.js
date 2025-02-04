@@ -1,4 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
+
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 import config from '../config/url'
 
 function signin(user) {
@@ -24,6 +27,15 @@ function deleteMyAccount(id){
     return axios.post(config.url+'/user/deleteMyAccount/' + id)
 }
 
+function SendCode(data){
+    return axios.post(config.url + '/user/sendCode', data)
+}
+
+function ResetPassword(data){
+    return axios.post(config.url+ '/user/resetPassword', data)
+}
+
+
 export default { 
-    signin, login, profil, updateUser, deleteMyAccount
+    signin, login, profil, updateUser, deleteMyAccount, SendCode, ResetPassword
  }

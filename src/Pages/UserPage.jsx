@@ -25,6 +25,7 @@ const UserPage = () => {
     };
 
 
+
     const handleChange = (e) => {
         setTempUser({ ...tempUser, [e.target.name]: e.target.value });
     };
@@ -149,7 +150,7 @@ const UserPage = () => {
 
                 <div className="ligne-mdp">
                     <div className="d-flex mt-3">
-                        <h2><Button variant="light">Modifier mon mot de passe</Button></h2>
+                        <h2><Button variant="light" onClick={() => navigate("/SendCode")}>Modifier mon mot de passe</Button></h2>
                     </div>
                     <div className="d-flex gap-3 flex-end">
                         <div className="d-flex mt-3">
