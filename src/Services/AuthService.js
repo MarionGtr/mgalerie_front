@@ -56,4 +56,22 @@ function logout() {
 }
 
 
-export default { isValid, setToken, getMailUser, logout }
+function getRoleUser() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.log("Aucun token trouvé");
+        return null;
+    }
+
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1])); // Décoder le JWT
+        console.log("Payload du token:", payload); // Vérification
+        return payload.role || "user"; 
+    } catch (error) {
+        console.error("Erreur lors du décodage du token:", error);
+        return "user"; 
+    }
+}
+
+
+export default { isValid, setToken, getMailUser, logout, getRoleUser }

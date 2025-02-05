@@ -3,12 +3,16 @@ import AuthContext from "../Context/AuthContext";
 import UserService from "../Services/UserService";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import AuthService from "../Services/AuthService";
 
 const UserPage = () => {
-    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, setIsAuthenticated, userRole, setUserRole } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [tempUser, setTempUser] = useState({}); //valeur temporaire lors de la saisie
     const navigate = useNavigate();
+
+    console.log("Valeur de isAuthenticated:", isAuthenticated);
+    console.log("Valeur de userRole:", userRole);
 
     const [usernameUpdate, setUsernameUpdate] = useState(false);
     const [nameUpdate, setNameUpdate] = useState(false);
@@ -56,7 +60,7 @@ const UserPage = () => {
             await UserService.deleteMyAccount(user.id_user);
             setIsAuthenticated(false);
             setUser(null);
-            navigate("/"); 
+            navigate("/");
         } catch (error) {
             console.log(error);
         }
@@ -64,6 +68,7 @@ const UserPage = () => {
 
     useEffect(() => {
         fetchUser();
+        setUserRole(AuthService.getRoleUser());  // Met à jour le rôle après récupération du user
     }, [isAuthenticated]);
 
     return <>
@@ -71,7 +76,16 @@ const UserPage = () => {
             <div className="bloc-user">
                 <div className="mon-compte">
                     <h1>MON COMPTE</h1>
+
+                    {userRole === "admin" && (
+                        <div className="d-flex mt-3">
+                            <Button variant="warning" onClick={() => navigate("/admin")}>GESTION ADMIN</Button>
+                        </div>
+                    )}
+
                     <Button variant="light" onClick={() => navigate("/profil")}>Retour</Button>
+
+
                 </div>
 
                 <div className="ligne-moncompte">
@@ -157,6 +171,8 @@ const UserPage = () => {
                             <h2><Button variant="light" onClick={handleDelete}>Supprimer mon compte</Button></h2>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

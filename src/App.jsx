@@ -16,22 +16,20 @@ import Footer from './Components/Footer'
 import UserPage from './Pages/UserPage'
 import ResetPassword from './Pages/resetPassword'
 import SendCode from './Pages/sendCode'
-
-
+import AdminPage from './Pages/AdminPage'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(AuthService.isValid())
   const [user, setUser] = useState(AuthService.getMailUser())
+  const [userRole, setUserRole] = useState(AuthService.getRoleUser());
 
   return (
- 
-  
     <BrowserRouter>
-      <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>
-      <Navbar />
+      <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, userRole, setUserRole }}>
+        <Navbar />
         <Routes> 
           <Route path="/" element={<HomePage />} />
-          <Route path="/artworkByID/:id" element={<ArtworkDetailsPage />}/>
+          <Route path="/artworkByID/:id" element={<ArtworkDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/styleByID/:id" element={<StyleDetailsPage />} />
@@ -39,16 +37,20 @@ function App() {
           <Route path="/sendCode" element={<SendCode />} />
 
           <Route element={<RouteSecu />}>
-          <Route path="/profil" element={<ProfilPage />} />
-          <Route path="/user" element={<UserPage />} />
-
-
+            <Route path="/profil" element={<ProfilPage />} />
+            <Route path="/user" element={<UserPage />} />
           </Route>
+
+          {/*  Route admin */}
+          <Route element={<RouteSecu role="admin" />}>
+            <Route path="/admin" element={<AdminPage />} />
+          </Route>
+
         </Routes>
-        <Footer/>
+        <Footer />
       </AuthContext.Provider>
     </BrowserRouter>
   )
 }
 
-export default App
+export default App;
