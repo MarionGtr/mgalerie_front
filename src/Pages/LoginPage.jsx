@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
 const LoginPage = () => {
-   
+
 
     const [user, setUser] = useState({})
     const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext)
@@ -37,31 +37,36 @@ const LoginPage = () => {
         }
     }
 
-    return <Container className='d-flex flex-column justify-content-center align-items-center mt-5'>
+    return <Container className='mt-5'>
 
-        <h1>Connexion</h1>
+        <h1 className="mb-4">Connexion</h1>
 
         <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Adresse mail</Form.Label>
-                <Form.Control name="email" type="email" placeholder="Entrer email"  value={user.email} onChange={handleChange} required/>
-                <Form.Text className="text-muted">
-                    Nous ne paragerons jamais votre email avec quelqu'un d'autre.
-                </Form.Text>
+
+
+            <Form.Group className="mb-3">
+                <Form.Label className="text-danger">Mail</Form.Label>
+                <Form.Control name="email" type="email" required value={user.email} onChange={handleChange} />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Mot de passe</Form.Label>
-                <Form.Control name="password" type="password" placeholder="saisir mot de passe"  value={user.password} onChange={handleChange} required />
+            <Form.Group className="mb-3">
+                <Form.Label style={{ color: 'var(--bleu)' }}>Mot de passe</Form.Label>
+                <Form.Control name="password" type="password" required value={user.password} onChange={handleChange} />
             </Form.Group>
 
-            <Button variant="outline-dark" type="submit">
-                Se connecter
-            </Button>
-            <Button variant="outline-dark" type="submit" onClick={() => navigate("/SendCode")}  >
-                Mot de passe oublié
-            </Button>
+            <div className="text-center">
+                <Button type="submit" style={{ backgroundColor: 'var(--jaune)', border: 'none', color: 'black' }}>
+                    Inscription
+                </Button>
 
+
+                <Button type="submit" style={{ backgroundColor: 'var(--jaune)', border: 'none', color: 'black' }}>
+                    Se connecter
+                </Button>
+                <Button type="submit" style={{ backgroundColor: 'var(--jaune)', border: 'none', color: 'black' }} onClick={() => navigate("/SendCode")} >
+                    Mot de passe oublié
+                </Button>
+            </div>
         </Form>
     </Container>
 

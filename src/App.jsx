@@ -23,11 +23,14 @@ function App() {
   const [user, setUser] = useState(AuthService.getMailUser())
   const [userRole, setUserRole] = useState(AuthService.getRoleUser());
 
+
   return (
     <BrowserRouter>
       <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, userRole, setUserRole }}>
-        <Navbar />
-        <Routes> 
+      <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <Navbar />
+
+        <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/artworkByID/:id" element={<ArtworkDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -45,9 +48,10 @@ function App() {
           <Route element={<RouteSecu role="admin" />}>
             <Route path="/admin" element={<AdminPage />} />
           </Route>
-
         </Routes>
+
         <Footer />
+        </div>
       </AuthContext.Provider>
     </BrowserRouter>
   )

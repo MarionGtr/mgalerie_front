@@ -16,7 +16,8 @@ function getMailUser() {
         const decodedToken = jwtDecode(token);
         const user = {
             email: decodedToken.email,
-            id: decodedToken.id
+            id: decodedToken.id,
+
         };
         localStorage.setItem("user", JSON.stringify(user)); // Stocke l'utilisateur connecté
         return user;

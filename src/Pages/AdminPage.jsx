@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ArtworkService from '../services/ArtworkService';
+import axios from 'axios';
 
 const AdminPage = () => {
     const [artworks, setArtworks] = useState([]);
@@ -45,8 +46,10 @@ const AdminPage = () => {
             } else {
                 await ArtworkService.addArtwork(formData);
                 alert("Œuvre ajoutée avec succès");
-            }
+            }  
+            handleUpload();
             loadArtworks();
+          
             resetForm();
         } catch (error) {
             console.error("Erreur lors de l'opération:", error);
@@ -55,33 +58,35 @@ const AdminPage = () => {
     };
 
 
-    const handleUpload = async (e) => {
-        e.preventDefault();
-        try {
-            if (!file) return;
+    const handleUpload = async () => {
+      
+        // try {
+            // if (!file) return;
             
             const formDataUpload = new FormData();
             formDataUpload.append("file", file);
             formDataUpload.append("name", "test");
             
             const response = await axios.post("http://127.0.0.1:3000/image", formDataUpload, {
+              
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
+                
             });
+            //   console.log(response)
+            // // Update image_url in form with the response
+            // setFormData(prev => ({
+            //     ...prev,
+            //     image_url: file.filename // Adjust based on your API response
+            // }));
             
-            // Update image_url in form with the response
-            setFormData(prev => ({
-                ...prev,
-                image_url: response.data.url // Adjust based on your API response
-            }));
-            
-            setFile(null);
-        } catch (error) {
-            console.error("Erreur lors de l'upload:", error);
-            alert("Erreur lors de l'upload de l'image");
+        //     setFile(null);
+        // } catch (error) {
+        //     console.error("Erreur lors de l'upload:", error);
+        //     alert("Erreur lors de l'upload de l'image");
         }
-    };
+    // };
 
     const handleDelete = async (id) => {
         if (window.confirm("Êtes-vous sûr de vouloir supprimer cette œuvre ?")) {
@@ -160,16 +165,14 @@ const AdminPage = () => {
                         placeholder="Date(s) de création"
                         required
                     />
-                    <form onSubmit={handleUpload} className="upload-form">
+                  
                         <input
                             type="file"
                             name="file"
                             onChange={(e) => setFile(e.target.files[0])}
                         />
-                         <button type="submit" className="submit-button">
-                        Ajouter l'image
-                    </button>
-                    </form>
+                        
+               
 
                     <textarea
                         name="description"

@@ -32,55 +32,48 @@ const Signin = () => {
         }
     }
 
-    return <Container className='d-flex flex-column justify-content-center align-items-center mt-5'>
+    return <Container className="mt-3">
+    <h1 className="mb-4">Créer un compte</h1>
+    
+    <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+            <Form.Label className="text-danger">Nom</Form.Label>
+            <Form.Control name="last_name" type="text" required value={user.last_name} onChange={handleChange} />
+        </Form.Group>
 
-        <h1>Formulaire d'inscription</h1>
+        <Form.Group className="mb-3">
+            <Form.Label style={{color: 'var(--bleu)'}}>Prénom</Form.Label>
+            <Form.Control name="first_name" type="text" required value={user.first_name} onChange={handleChange} />
+        </Form.Group>
 
-        <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Adresse mail</Form.Label>
-                <Form.Control name="email" type="email" placeholder="Entrer email" required={true} value={user.email} onChange={handleChange} />
-                <Form.Text className="text-muted">
-                    Nous ne paragerons jamais votre email avec quelqu'un d'autre.
-                </Form.Text>
-            </Form.Group>
+        <Form.Group className="mb-3">
+            <Form.Label style={{color: 'var(--jaune)'}}>Pseudo</Form.Label>
+            <Form.Control name="username" type="text" required value={user.username} onChange={handleChange} />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicFirstName">
-                <Form.Label>Prénom</Form.Label>
-                <Form.Control name="first_name" type="text" placeholder="Entrer prénom" required={true} value={user.first_name} onChange={handleChange} />
-                <Form.Text className="text-muted">
-                </Form.Text>
-            </Form.Group>
+        <Form.Group className="mb-3">
+            <Form.Label className="text-danger">Mail</Form.Label>
+            <Form.Control name="email" type="email" required value={user.email} onChange={handleChange} />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicLastName">
-                <Form.Label>Nom</Form.Label>
-                <Form.Control name="last_name" type="text" placeholder="Entrer nom" required={true} value={user.last_name} onChange={handleChange} />
-                <Form.Text className="text-muted">
-                </Form.Text>
-            </Form.Group>
+        <Form.Group className="mb-3">
+            <Form.Label style={{color: 'var(--bleu)'}}>Mot de passe</Form.Label>
+            <Form.Control name="password" type="password" required value={user.password} onChange={handleChange} />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicUsername">
-                <Form.Label>Pseudo</Form.Label>
-                <Form.Control name="username" type="text" placeholder="Entrer pseudo" required={true} value={user.username} onChange={handleChange} />
-                <Form.Text className="text-muted">
-                </Form.Text>
-            </Form.Group>
+        <Form.Group className="mb-4">
+            <Form.Label style={{color: 'var(--jaune'}}>Vérifier mot de passe</Form.Label>
+            <Form.Control name="verifyPassword" type="password" required value={user.verifyPassword} onChange={handleChange} />
+        </Form.Group>
 
-            <Form.Group className="mb-3" >
-                <Form.Label>Mot de passe</Form.Label>
-                <Form.Control type="password" placeholder="Choisissez un mot de passe" name='password' value={user.password} onChange={handleChange} required={true} />
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label>Verifiez votre mot de passe</Form.Label>
-                <Form.Control type="password" placeholder="Verifiez votre mot de passe" name='verifyPassword' value={user.verifyPassword} onChange={handleChange} required={true} />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-                S'inscrire
+        <div className="text-center">
+            <Button type="submit" style={{backgroundColor: 'var(--jaune)', border: 'none', color: 'black'}}>
+                Inscription
             </Button>
-        </Form>
-    </Container>
+        </div>
+    </Form>
+</Container>
+    
 
 }
 
