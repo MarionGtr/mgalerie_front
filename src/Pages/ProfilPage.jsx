@@ -7,12 +7,14 @@ import { Button } from "react-bootstrap";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CommentService from "../services/CommentService";
+import AuthService from "../Services/AuthService"; // 🔥 Ajout pour récupérer l'utilisateur
 
 const ProfilPage = () => {
     const { user: authenticatedUser, isAuthenticated } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [likedArtworks, setLikedArtworks] = useState([]);
-    const [userComments, setUserComments] = useState([]); 
+    const [userComments, setUserComments] = useState([]);
+    const [updatedUser, setUpdatedUser] = useState(AuthService.getMailUser()); // 🔥 Permet de forcer la mise à jour
     const navigate = useNavigate();
 
     const fetchUser = async () => {
@@ -34,11 +36,12 @@ const ProfilPage = () => {
     };
 
     const fetchUserComments = async () => {
-        if (authenticatedUser && authenticatedUser.id) {
-            console.log("ID Utilisateur connecté : ", authenticatedUser.id); // Vérifie si l'ID utilisateur est récupéré
+        const currentUser = AuthService.getMailUser(); // 🔥 Récupère l'utilisateur à jour
+        if (currentUser && currentUser.id) {
+            console.log("ID Utilisateur connecté : ", currentUser.id); 
             try {
-                const response = await CommentService.getUsersComments(authenticatedUser.id);
-                console.log("Réponse API : ", response.data); // Log réponse de l'API
+                const response = await CommentService.getUsersComments(currentUser.id);
+                console.log("Réponse API : ", response.data); 
                 setUserComments(response.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des commentaires : ", error);
@@ -46,17 +49,15 @@ const ProfilPage = () => {
         } else {
             console.log("Utilisateur non authentifié ou ID utilisateur manquant");
         }
-        
     };
-    
 
     useEffect(() => {
         fetchUser();
-        if (isAuthenticated) {
+        if (isAuthenticated || updatedUser.id) {
             fetchLikedArtworks();
-            fetchUserComments();  // Récupérer les commentaires de l'utilisateur connecté
+            fetchUserComments();
         }
-    }, [isAuthenticated]);
+    }, [isAuthenticated, updatedUser]); // 🔥 Ajout de updatedUser pour forcer la mise à jour
 
     return (
         <div className="profil-body">

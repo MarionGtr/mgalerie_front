@@ -4,13 +4,15 @@ import ArtworkService from "../services/ArtworkService";
 import CommentService from "../services/CommentService";
 import config from "../config/url";
 import AuthContext from "../Context/AuthContext";
+import AuthService from "../Services/AuthService";
 
 const ArtworkDetailsPage = () => {
     const { id } = useParams();
     const [artwork, setArtwork] = useState({});
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const { isAuthenticated, user } = useContext(AuthContext);
+    const { isAuthenticated } = useContext(AuthContext);
+    const user = AuthService.getMailUser();
 
     const fetchArtworkByID = async () => {
         try {
@@ -34,24 +36,23 @@ const ArtworkDetailsPage = () => {
         if (!isAuthenticated || !user) {
             console.error("Utilisateur non défini !");
             console.log("Utilisateur récupéré :", user);
-
             return;
         }
         if (newComment.trim() === "") {
             console.error("Le commentaire est vide !");
             return;
         }
-    
+
         try {
             console.log("Données envoyées :", { id, content: newComment, id_user: user.id_user });
-    
+
             const response = await CommentService.addComment(id, newComment, user.id_user);
-    
+
             if (!response.data || !response.data.id_comment) {
                 console.error("Réponse invalide de l'API :", response.data);
                 return;
             }
-    
+
             const newCommentData = {
                 id_comment: response.data.id_comment,
                 content: newComment,
@@ -60,15 +61,24 @@ const ArtworkDetailsPage = () => {
                 id_user: user.id_user,
                 username: user.username
             };
-    
+
             setComments([newCommentData, ...comments]);
-            setNewComment("");  // Réinitialise le champ
+            setNewComment("");
         } catch (error) {
             console.error("Erreur lors de l'ajout du commentaire :", error.response?.data || error);
         }
     };
-    
-    
+
+    const handleDeleteComment = async (id_comment) => {
+        try {
+            const response = await CommentService.deleteComment(id_comment, id);
+            if (response.data && response.data.message === "Commentaire supprimé avec succès") {
+                setComments(comments.filter((comment) => comment.id_comment !== id_comment));
+            }
+        } catch (error) {
+            console.error("Erreur lors de la suppression du commentaire :", error.response?.data || error);
+        }
+    };
 
     useEffect(() => {
         fetchArtworkByID();
@@ -106,33 +116,40 @@ const ArtworkDetailsPage = () => {
             </div>
 
             <div className="block-comment">
-                {comments.map((comment) => (
-                    <div key={comment.id_comment} className="comment-card">
-                        <h5 className="comment-username">{comment.username}</h5>
-                        <h4 className="comment-text">{comment.content}</h4>
-                        <div className="comment-date">
-                            {new Date(comment.created_at).toLocaleDateString('fr-FR', {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                            })}
+                {Array.isArray(comments) && comments.length > 0 ? (
+                    comments.map((comment) => (
+                        <div key={comment.id_comment} className="comment-card">
+                            <h5 className="comment-username">{comment.username}</h5>
+                            <h4 className="comment-text">{comment.content}</h4>
+                            <div className="comment-date">
+                                {new Date(comment.created_at).toLocaleDateString('fr-FR', {
+                                    day: 'numeric',
+                                    month: 'long',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}
+                            </div>
+                            {user.role === "admin" && (
+                                <button onClick={() => handleDeleteComment(comment.id_comment)}>Supprimer</button>
+                            )}
                         </div>
-                    </div>
-                ))}
-
-                {isAuthenticated && (
-                    <div className="comment-input">
-                        <textarea
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                            placeholder="Ajouter un commentaire..."
-                        ></textarea>
-                        <button onClick={handleAddComment}>Envoyer</button>
-                    </div>
+                    ))
+                ) : (
+                    <p>Pas de commentaires pour le moment.</p>
                 )}
             </div>
+
+            {isAuthenticated && (
+                <div className="comment-input">
+                    <textarea
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Ajouter un commentaire..."
+                    ></textarea>
+                    <button onClick={handleAddComment}>Envoyer</button>
+                </div>
+            )}
         </div>
     );
 };
