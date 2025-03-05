@@ -32,48 +32,50 @@ const Signin = () => {
         }
     }
 
-    return <Container className="mt-3">
-    <h1 className="mb-4">Créer un compte</h1>
-    
-    <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-            <Form.Label className="text-danger">Nom</Form.Label>
-            <Form.Control name="last_name" type="text" required value={user.last_name} onChange={handleChange} />
-        </Form.Group>
+    return <div className="form-container">
+        <div className="bloc-form">
+            <h1 className="mb-4 d-flex justify-content-start">Créer un compte</h1>
 
-        <Form.Group className="mb-3">
-            <Form.Label style={{color: 'var(--bleu)'}}>Prénom</Form.Label>
-            <Form.Control name="first_name" type="text" required value={user.first_name} onChange={handleChange} />
-        </Form.Group>
+            <Form className="global-form" onSubmit={handleSubmit}>
+                <Form.Group className="form-group">
+                    <Form.Label style={{ color: 'var(--bleu)' }}>Nom</Form.Label>
+                    <Form.Control name="last_name" type="text" required value={user.last_name} onChange={handleChange} />
+                </Form.Group>
 
-        <Form.Group className="mb-3">
-            <Form.Label style={{color: 'var(--jaune)'}}>Pseudo</Form.Label>
-            <Form.Control name="username" type="text" required value={user.username} onChange={handleChange} />
-        </Form.Group>
+                <Form.Group className="form-group">
+                    <Form.Label style={{ color: 'var(--bleu)' }}>Prénom</Form.Label>
+                    <Form.Control name="first_name" type="text" required value={user.first_name} onChange={handleChange} />
+                </Form.Group>
 
-        <Form.Group className="mb-3">
-            <Form.Label className="text-danger">Mail</Form.Label>
-            <Form.Control name="email" type="email" required value={user.email} onChange={handleChange} />
-        </Form.Group>
+                <Form.Group className="form-group">
+                    <Form.Label style={{ color: 'var(--bleu)' }}>Pseudo</Form.Label>
+                    <Form.Control name="username" type="text" required value={user.username} onChange={handleChange} />
+                </Form.Group>
 
-        <Form.Group className="mb-3">
-            <Form.Label style={{color: 'var(--bleu)'}}>Mot de passe</Form.Label>
-            <Form.Control name="password" type="password" required value={user.password} onChange={handleChange} />
-        </Form.Group>
+                <Form.Group className="form-group">
+                    <Form.Label style={{ color: 'var(--bleu)' }}>Mail</Form.Label>
+                    <Form.Control name="email" type="email" required value={user.email} onChange={handleChange} />
+                </Form.Group>
 
-        <Form.Group className="mb-4">
-            <Form.Label style={{color: 'var(--jaune'}}>Vérifier mot de passe</Form.Label>
-            <Form.Control name="verifyPassword" type="password" required value={user.verifyPassword} onChange={handleChange} />
-        </Form.Group>
+                <Form.Group className="form-group">
+                    <Form.Label style={{ color: 'var(--bleu)' }}>Mot de passe</Form.Label>
+                    <Form.Control name="password" type="password" required value={user.password} onChange={handleChange} />
+                </Form.Group>
 
-        <div className="text-center">
-            <Button type="submit" style={{backgroundColor: 'var(--jaune)', border: 'none', color: 'black'}}>
-                Inscription
-            </Button>
+                <Form.Group className="mb-4">
+                    <Form.Label style={{ color: 'var(--bleu)' }}>Vérifier mot de passe</Form.Label>
+                    <Form.Control name="verifyPassword" type="password" required value={user.verifyPassword} onChange={handleChange} />
+                </Form.Group>
+
+                <div className="text-end">
+                    <Button className="btn-form" type="submit" style={{ backgroundColor: 'var(--bleu)', border: 'none', color: 'white' }}>
+                        Inscription
+                    </Button>
+                </div>
+            </Form>
         </div>
-    </Form>
-</Container>
-    
+    </div>
+
 
 }
 

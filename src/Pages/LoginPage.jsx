@@ -37,38 +37,40 @@ const LoginPage = () => {
         }
     }
 
-    return <Container className='mt-5'>
+    return <div className="form-container">
+    <div className="bloc-form">
+        <h1 className="mb-4 d-flex justify-content-start">Créer un compte</h1>
 
-        <h1 className="mb-4">Connexion</h1>
+        <Form className="global-form" onSubmit={handleSubmit}>
 
-        <Form onSubmit={handleSubmit}>
-
-
-            <Form.Group className="mb-3">
-                <Form.Label className="text-danger">Mail</Form.Label>
+            <Form.Group className="form-group">
+                <Form.Label style={{ color: 'var(--bleu)' }}>Mail</Form.Label>
                 <Form.Control name="email" type="email" required value={user.email} onChange={handleChange} />
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group className="form-group">
                 <Form.Label style={{ color: 'var(--bleu)' }}>Mot de passe</Form.Label>
                 <Form.Control name="password" type="password" required value={user.password} onChange={handleChange} />
             </Form.Group>
 
-            <div className="text-center">
-                <Button type="submit" style={{ backgroundColor: 'var(--jaune)', border: 'none', color: 'black' }}>
-                    Inscription
-                </Button>
 
-
-                <Button type="submit" style={{ backgroundColor: 'var(--jaune)', border: 'none', color: 'black' }}>
-                    Se connecter
-                </Button>
-                <Button type="submit" style={{ backgroundColor: 'var(--jaune)', border: 'none', color: 'black' }} onClick={() => navigate("/SendCode")} >
+            <div className="grp-btn-form">
+                <div>
+                Pas encore de compte? 
+                <p type="submit" onClick={() => navigate("/Signin")}>S'inscrire</p>
+                </div>
+                <Button className="btn-form" type="submit" style={{ backgroundColor: 'var(--bleu)', border: 'none', color: 'white' }} onClick={() => navigate("/SendCode")} >
                     Mot de passe oublié
+                </Button>
+                <Button className="btn-form" type="submit" style={{ backgroundColor: 'var(--bleu)', border: 'none', color: 'white' }}>
+                    Se connecter
                 </Button>
             </div>
         </Form>
-    </Container>
+    </div>
+</div>
+
+
 
 }
 
