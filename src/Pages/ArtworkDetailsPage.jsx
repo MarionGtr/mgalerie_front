@@ -5,6 +5,8 @@ import CommentService from "../services/CommentService";
 import config from "../config/url";
 import AuthContext from "../Context/AuthContext";
 import AuthService from "../Services/AuthService";
+import { Button, FloatingLabel } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 
 const ArtworkDetailsPage = () => {
     const { id } = useParams();
@@ -13,6 +15,20 @@ const ArtworkDetailsPage = () => {
     const [newComment, setNewComment] = useState("");
     const { isAuthenticated } = useContext(AuthContext);
     const user = AuthService.getMailUser();
+
+    // modal fond flou
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState("");
+    const openModal = (imageUrl) => {
+        console.log("Ouverture du modal avec l'image :", imageUrl); // Debug
+        setSelectedImage(imageUrl);
+        setIsModalOpen(true);
+    };
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+
 
     const fetchArtworkByID = async () => {
         try {
@@ -108,49 +124,76 @@ const ArtworkDetailsPage = () => {
 
                 <div className="details-droite">
                     {artwork.image_url ? (
-                        <img className="card-img" src={config.url + "/images/" + artwork.image_url} alt={artwork.title} />
+                        <img
+                            className="img-detail"
+                            src={config.url + "/images/" + artwork.image_url}
+                            alt={artwork.title}
+                            onClick={() => openModal(config.url + "/images/" + artwork.image_url)}
+                        />
+
                     ) : (
                         <h4>Image non disponible</h4>
                     )}
                 </div>
             </div>
+            <div className="bloc-comment">
+            
+                <div className="comment-section">
+                <h2>Espace commentaires </h2>
+                    {Array.isArray(comments) && comments.length > 0 ? (
 
-            <div className="block-comment">
-                {Array.isArray(comments) && comments.length > 0 ? (
-                    comments.map((comment) => (
-                        <div key={comment.id_comment} className="comment-card">
-                            <h5 className="comment-username">{comment.username}</h5>
-                            <h4 className="comment-text">{comment.content}</h4>
-                            <div className="comment-date">
-                                {new Date(comment.created_at).toLocaleDateString('fr-FR', {
-                                    day: 'numeric',
-                                    month: 'long',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                })}
+                        comments.map((comment) => (
+
+                            <div key={comment.id_comment} className="comment-card">
+
+                                <h5 className="comment-username">{comment.username}</h5>
+                                <h4 className="comment-text">{comment.content}</h4>
+                                <div className="comment-date">
+                                    {new Date(comment.created_at).toLocaleDateString('fr-FR', {
+                                        day: 'numeric',
+                                        month: 'long',
+                                        year: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                    })}
+                                </div>
+                                {user.role === "admin" && (
+                                    <Button variant="danger" onClick={() => handleDeleteComment(comment.id_comment)}>Supprimer</Button>
+                                )}
                             </div>
-                            {user.role === "admin" && (
-                                <button onClick={() => handleDeleteComment(comment.id_comment)}>Supprimer</button>
-                            )}
-                        </div>
-                    ))
-                ) : (
-                    <p>Pas de commentaires pour le moment.</p>
+                        ))
+                    ) : (
+                        <p>Pas de commentaires pour le moment.</p>
+                    )}
+                </div>
+
+                {isAuthenticated && (
+                    <div className="comment-input">
+                        
+                        <FloatingLabel controlId="floatingTextarea" label="Ajouter un commentaire">
+                        <Form.Control
+                            as="textarea"
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                            placeholder="Ajouter un commentaire..."
+                            style={{ height: '200px'}}
+                            />        
+                        </FloatingLabel>
+                        <Button variant="light" onClick={handleAddComment}>Envoyer</Button>
+                    </div>
+                )}
+
+                {isModalOpen && (
+                    <div className={`modal ${isModalOpen ? "show" : ""}`} onClick={closeModal}>
+                        <span className="close">&times;</span>
+                        <img className="modal-content" src={selectedImage} alt="Artwork zoomed" />
+                    </div>
                 )}
             </div>
 
-            {isAuthenticated && (
-                <div className="comment-input">
-                    <textarea
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="Ajouter un commentaire..."
-                    ></textarea>
-                    <button onClick={handleAddComment}>Envoyer</button>
-                </div>
-            )}
         </div>
+
+
     );
 };
 

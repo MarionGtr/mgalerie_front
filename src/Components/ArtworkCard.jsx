@@ -93,7 +93,7 @@ function ArtworkCard({ artwork, onClick }) {
                     <Heart fill={liked ? "red" : "none"} color={liked ? "red" : "white"} />
                 </div>
             )}
-            <Card.Body>
+            <Card.Body className="card-body">
                 <Card.Text className="card-title">{artwork.title}</Card.Text>
             </Card.Body>
         </Card>

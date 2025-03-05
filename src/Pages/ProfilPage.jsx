@@ -7,15 +7,16 @@ import { Button } from "react-bootstrap";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CommentService from "../services/CommentService";
-import AuthService from "../Services/AuthService"; // 🔥 Ajout pour récupérer l'utilisateur
+import AuthService from "../Services/AuthService";
 
 const ProfilPage = () => {
     const { user: authenticatedUser, isAuthenticated } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [likedArtworks, setLikedArtworks] = useState([]);
     const [userComments, setUserComments] = useState([]);
-    const [updatedUser, setUpdatedUser] = useState(AuthService.getMailUser()); // 🔥 Permet de forcer la mise à jour
+    const [updatedUser, setUpdatedUser] = useState(AuthService.getMailUser()); 
     const navigate = useNavigate();
+
 
     const fetchUser = async () => {
         try {
@@ -36,7 +37,7 @@ const ProfilPage = () => {
     };
 
     const fetchUserComments = async () => {
-        const currentUser = AuthService.getMailUser(); // 🔥 Récupère l'utilisateur à jour
+        const currentUser = AuthService.getMailUser(); 
         if (currentUser && currentUser.id) {
             console.log("ID Utilisateur connecté : ", currentUser.id); 
             try {
@@ -57,15 +58,15 @@ const ProfilPage = () => {
             fetchLikedArtworks();
             fetchUserComments();
         }
-    }, [isAuthenticated, updatedUser]); // 🔥 Ajout de updatedUser pour forcer la mise à jour
+    }, [isAuthenticated, updatedUser]);
 
     return (
         <div className="profil-body">
             <div className="profil-info">
-                <h1>Profil de : {user.username}</h1>
+                <h1>{user.username}</h1>
                 <Button variant="light" onClick={() => navigate("/user")}>Voir plus</Button>
                 <div className="user-comment">
-                    <h2>Derniers commentaires :</h2>
+                    <h2>Derniers commentaires </h2>
                     {userComments.length > 0 ? (
                         <ul>
                             {userComments.map((comment) => (
@@ -90,7 +91,8 @@ const ProfilPage = () => {
                             <ArtworkCard
                                 key={artwork.id_artwork}
                                 artwork={artwork}
-                                onClick={() => console.log("Détails de l'œuvre", artwork.id_artwork)}
+                                onClick={() => navigate("/artworkByID/" + artwork.id_artwork)}
+                                
                             />
                         ))}
                     </div>

@@ -32,7 +32,6 @@ function isValid() {
     const token = localStorage.getItem('token')
     if (token) {
         const decodedToken = jwtDecode(token)
-        console.log(decodedToken)
         if (decodedToken.exp * 1000 < new Date().getTime()) {
             logout()
             return false
@@ -61,16 +60,13 @@ function logout() {
 function getRoleUser() {
     const token = localStorage.getItem("token");
     if (!token) {
-        console.log("Aucun token trouvé");
         return null;
     }
 
     try {
         const payload = JSON.parse(atob(token.split(".")[1])); // Décoder le JWT
-        console.log("Payload du token:", payload); // Vérification
         return payload.role || "user"; 
     } catch (error) {
-        console.error("Erreur lors du décodage du token:", error);
         return "user"; 
     }
 }

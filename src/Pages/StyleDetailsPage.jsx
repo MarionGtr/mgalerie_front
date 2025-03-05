@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import StyleService from "../Services/StyleService";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import PossederService from "../Services/PossederService";
 import ArtworkCard from "../Components/ArtworkCard";
-import ArtworkService from "../Services/ArtworkService";
+import ArtworkService from "../services/ArtworkService";
 
 const StyleDetails = () => {
 
@@ -11,6 +11,7 @@ const StyleDetails = () => {
     const [style, setStyle] = useState([])
     const [byStyle, setByStyle] = useState([])
     const [artworkImages, setArtworkImages] = useState([])
+    const navigate = useNavigate()
 
     const fetchStyleByID = async () => {
         try {
@@ -49,15 +50,20 @@ const StyleDetails = () => {
     }, [])
 
     return <>
-        <div>
-            <h1>{style.style}</h1>
-            <h3>{style.style_description}</h3>
-            <h3>Période : {style.period}</h3>
-        </div>
-        <div>
-            {byStyle && byStyle.map((image, index) => (
-                <ArtworkCard key={index} artwork={image} />
-            ))}
+        <div className="bloc-style-details">
+            <div className="style-details">
+                <h1>{style.style}</h1>
+                <h3>{style.style_description}</h3>
+                <h3>Période : {style.period}</h3>
+            </div>
+            <div className="artwork-by-style">
+                {byStyle && byStyle.map((image, index) => (
+                    <ArtworkCard className="style-img"
+                    key={index} 
+                    artwork={image} 
+                    onClick={() => navigate("/artworkByID/" +image.id_artwork)}/>
+                ))}
+            </div>
         </div>
     </>
 }
