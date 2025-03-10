@@ -1,12 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import ArtworkService from "../services/ArtworkService";
+import ArtworkService from "../Services/ArtworkService";
 import CommentService from "../services/CommentService";
 import config from "../config/url";
 import AuthContext from "../Context/AuthContext";
 import AuthService from "../Services/AuthService";
 import { Button, FloatingLabel } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
+
 
 const ArtworkDetailsPage = () => {
     const { id } = useParams();
@@ -137,9 +138,9 @@ const ArtworkDetailsPage = () => {
                 </div>
             </div>
             <div className="bloc-comment">
-            
+
                 <div className="comment-section">
-                <h2>Espace commentaires </h2>
+                    <h2>Espace commentaires </h2>
                     {Array.isArray(comments) && comments.length > 0 ? (
 
                         comments.map((comment) => (
@@ -169,15 +170,15 @@ const ArtworkDetailsPage = () => {
 
                 {isAuthenticated && (
                     <div className="comment-input">
-                        
+
                         <FloatingLabel controlId="floatingTextarea" label="Ajouter un commentaire">
-                        <Form.Control
-                            as="textarea"
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                            placeholder="Ajouter un commentaire..."
-                            style={{ height: '200px'}}
-                            />        
+                            <Form.Control
+                                as="textarea"
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Ajouter un commentaire..."
+                                style={{ height: '200px' }}
+                            />
                         </FloatingLabel>
                         <Button variant="light" onClick={handleAddComment}>Envoyer</Button>
                     </div>
@@ -186,7 +187,9 @@ const ArtworkDetailsPage = () => {
                 {isModalOpen && (
                     <div className={`modal ${isModalOpen ? "show" : ""}`} onClick={closeModal}>
                         <span className="close">&times;</span>
-                        <img className="modal-content" src={selectedImage} alt="Artwork zoomed" />
+                        <div className="image-container">
+                            <img className="modal-content" src={selectedImage} alt="Artwork zoomed" />
+                        </div>
                     </div>
                 )}
             </div>

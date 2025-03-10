@@ -346,7 +346,6 @@ body {
 
 .modal.show {
     display: flex;
-    /* Affiché uniquement quand la classe 'show' est ajoutée */
 }
 
 
@@ -360,6 +359,9 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
     transition: transform 0.3s ease-in-out;
+    margin: 0; /* Élimine les marges par défaut */
+    display: block; /* Assure que l'image est traitée comme un bloc */
+    padding: 0; /* Élimine tout padding potentiel */
 }
 
 .modal-content:hover {
@@ -375,6 +377,22 @@ body {
     font-size: 35px;
     color: white;
     cursor: pointer;
+}
+
+.image-container {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.modal-content {
+    max-height: 90vh;
+    max-width: 90vw;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
 
