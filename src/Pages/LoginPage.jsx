@@ -39,7 +39,7 @@ const LoginPage = () => {
 
     return <div className="form-container">
     <div className="bloc-form">
-        <h1 className="mb-4 d-flex justify-content-start">Créer un compte</h1>
+        <h1 className="mb-4 d-flex justify-content-start">Connexion</h1>
 
         <Form className="global-form" onSubmit={handleSubmit}>
 
@@ -59,9 +59,9 @@ const LoginPage = () => {
                 Pas encore de compte? 
                 <p type="submit" onClick={() => navigate("/Signin")}>S'inscrire</p>
                 </div>
-                <Button className="btn-form" type="submit" style={{ backgroundColor: 'var(--bleu)', border: 'none', color: 'white' }} onClick={() => navigate("/SendCode")} >
+                <p  type="submit" onClick={() => navigate("/SendCode")} >
                     Mot de passe oublié
-                </Button>
+                </p>
                 <Button className="btn-form" type="submit" style={{ backgroundColor: 'var(--bleu)', border: 'none', color: 'white' }}>
                     Se connecter
                 </Button>
