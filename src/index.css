@@ -125,6 +125,7 @@ body {
     flex-direction: column;
     align-items: flex-start;
     padding-left: 2vw;
+    padding-right: 2vw;
     gap: 3vh;
 
 }
@@ -132,22 +133,22 @@ body {
 .bloc-courant h1 {
     display: flex;
     flex-direction: row;
-    margin-top: 14vh;
-    font-size: 2vw;
+    margin-top: 12vh;
+    font-size: 2rem;
     color: var(--noir);
     font-family: 'Lexend Deca', sans-serif;
     /* margin-bottom: 8vh; */
 }
 
 .bloc-courant h3 {
-    padding: 0.5rem;
-    font-size: 1.4vw;
+    font-size: 1.4rem;
     color: var(--noir);
     text-decoration: none;
     font-family: 'Lexend Deca', sans-serif;
     background-color: var(--jaune);
     border: none;
     align-items: flex-start;
+    display: flex;
 
 }
 
@@ -326,9 +327,6 @@ body {
 }
 
 
-
-
-
 /* Fond flouté et semi-transparent */
 .modal {
     display: none;
@@ -359,9 +357,12 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
     transition: transform 0.3s ease-in-out;
-    margin: 0; /* Élimine les marges par défaut */
-    display: block; /* Assure que l'image est traitée comme un bloc */
-    padding: 0; /* Élimine tout padding potentiel */
+    margin: 0;
+    /* Élimine les marges par défaut */
+    display: block;
+    /* Assure que l'image est traitée comme un bloc */
+    padding: 0;
+    /* Élimine tout padding potentiel */
 }
 
 .modal-content:hover {
@@ -855,13 +856,49 @@ body {
 
 /* ----------------------RESPONSIVE----------------------------*/
 
-
 /* Media queries pour iPhone 12/13 */
 @media only screen and (max-width: 428px) {
 
     /* Reset général pour petits écrans */
     * {
         box-sizing: border-box;
+    }
+
+    /* Ajustements Navbar */
+    .Navbar {
+        margin-bottom: 0 !important;
+        box-sizing: border-box;
+        height: auto !important;
+        position: fixed !important;
+        z-index: 1001;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .container-navbar {
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .navbar-titre {
+        font-size: 24px;
+        margin-left: 0;
+    }
+
+    .nav-txt {
+        display: none;
+    }
+
+    body {
+        padding-top: 4rem;
+        overflow-x: hidden;
+        /* Empêche le scroll horizontal */
+        max-width: 100vw;
+        /* Limite la largeur à la taille de la fenêtre */
     }
 
     /* HOME PAGE */
@@ -887,8 +924,11 @@ body {
     }
 
     .bloc-principal {
-        padding: 15px;
         justify-content: center;
+        width: 100%;
+        max-width: 100%;
+        padding: 10px 15px;
+        box-sizing: border-box;
     }
 
     /* CARDS */
@@ -898,6 +938,20 @@ body {
         width: 100%;
     }
 
+    .card {
+        margin-bottom: 15px;
+        transform: scale(1);
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+    .card-body {
+        padding: 10px !important;
+    }
+
     .artwork-card {
         width: 100%;
         margin-bottom: 15px;
@@ -905,7 +959,12 @@ body {
 
     /* ARTWORK DETAILS */
     .body-haut {
-        flex-direction: column;
+        flex-direction: column-reverse;
+        gap: 2rem;
+    }
+
+    .body-details {
+        padding: 10px;
     }
 
     .details-gauche,
@@ -915,6 +974,8 @@ body {
 
     .img-detail {
         max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .bloc-comment {
@@ -923,11 +984,18 @@ body {
 
     .comment-section {
         width: 100%;
-        padding: 15px;
+        padding: 1rem;
+        box-shadow: 0 10px 10px -8px rgb(95, 93, 93) !important;
+    }
+
+    .comment-username {
+        font-size: 1.2rem;
     }
 
     .comment-input {
         width: 100%;
+        border-radius: 6px;
+        box-shadow: 0 10px 10px -8px rgb(95, 93, 93) !important;
     }
 
     .comment-input Button {
@@ -938,12 +1006,17 @@ body {
     /* PROFILE */
     .profil-body {
         flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
     }
 
     .profil-info {
         width: 100%;
         min-height: auto;
-        padding: 15px;
+        max-width: 100%;
     }
 
     .profil-info h1 {
@@ -961,7 +1034,9 @@ body {
 
     .profil-like {
         width: 100%;
-        margin: 15px;
+        display: contents;
+        margin-left: 1vw;
+        margin-right: 5vw;
     }
 
     .liked-artworks-list {
@@ -974,8 +1049,11 @@ body {
     }
 
     .bloc-form {
-        width: 100%;
+        width: 90%;
         padding: 15px;
+        margin-top: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
     }
 
     .form-group {
@@ -988,10 +1066,17 @@ body {
         gap: 10px;
     }
 
+    .grp-btn-form p {
+        margin: 5px 0;
+    }
+
     /* MON COMPTE */
     .bloc-user {
-        width: 95%;
-        margin: 15px auto;
+        width: 100%;
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        box-sizing: border-box;
     }
 
     .mon-compte {
@@ -1019,10 +1104,15 @@ body {
     }
 }
 
-
 /* Burger Menu Styles */
 .burger-menu-container {
     display: none;
+}
+
+@media only screen and (max-width: 428px) {
+    .burger-menu-container {
+        display: block;
+    }
 }
 
 .burger-button {
@@ -1061,7 +1151,7 @@ body {
 }
 
 .mobile-menu {
-    background-color: var(--bleu);
+    background-color: rgba(0, 0, 0, 0.735);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: none;
     height: 0;
@@ -1069,7 +1159,7 @@ body {
     overflow: hidden;
     position: fixed;
     top: 57px;
-    transition: height 0.3s ease-in-out, transform 0.3s ease;
+    transition: height 1s ease-in-out, transform 1s ease;
     width: 100%;
     z-index: 1000;
     margin-top: 0 !important;
@@ -1080,7 +1170,7 @@ body {
     display: block;
     height: auto;
     max-height: calc(100vh - 85px);
-    overflow-y: auto;
+    overflow-y: scroll;
     animation: slideDown 0.3s ease-in-out;
 }
 
@@ -1098,7 +1188,6 @@ body {
 
 .mobile-menu-content {
     padding: 20px 30px;
-    /* Augmenté le padding pour espacer les éléments des bords */
     display: flex;
     flex-direction: column;
 }
@@ -1127,7 +1216,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    /* Augmenté l'espace entre les items */
 }
 
 .mobile-menu-link {
@@ -1142,7 +1230,6 @@ body {
 .mobile-menu-link:hover {
     color: var(--jaune);
     transform: translateX(5px);
-    /* Effet de mouvement au survol */
 }
 
 .auth-link {
@@ -1151,13 +1238,11 @@ body {
     border-left: 4px solid var(--rouge);
     padding-left: 10px;
     margin-bottom: 10px;
-    /* Augmenté pour plus d'espace */
     transition: all 0.3s ease;
 }
 
 .auth-link:hover {
     padding-left: 15px;
-    /* Effet de décalage au survol */
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 0 4px 4px 0;
 }
@@ -1172,114 +1257,4 @@ body {
     padding-left: 15px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 0 4px 4px 0;
-}
-
-@media only screen and (max-width: 428px) {
-    .burger-menu-container {
-        display: block;
-    }
-
-    .navbar-titre {
-        font-size: 6vw;
-        margin-left: 0;
-    }
-
-    .Navbar {
-        margin-bottom: 0 !important;
-        box-sizing: border-box;
-        height: auto !important;
-        position: relative;
-        z-index: 1001;
-    }
-
-    .container-navbar {
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        padding-left: 1rem;
-        padding-right: 1rem;
-
-    }
-}
-
-/* Correction des problèmes de Navbar sur mobile */
-@media only screen and (max-width: 428px) {
-    .nav-txt {
-        display: none;
-    }
-
-    .navbar-titre {
-        font-size: 24px;
-        margin-left: 0;
-    }
-
-    /* Amélioration des cartes d'œuvres d'art sur mobile */
-    .bloc-principal {
-        padding: 10px;
-    }
-
-    .card {
-        max-width: 100%;
-        margin-bottom: 15px;
-        transform: scale(1);
-        transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-        transform: scale(1.02);
-    }
-
-    .card-img {
-        max-width: 100%;
-    }
-
-    .card-body {
-        padding: 10px !important;
-    }
-
-    /* Amélioration du formulaire de connexion sur mobile */
-    .form-container {
-        padding: 10px;
-    }
-
-    .bloc-form {
-        width: 90%;
-        padding: 15px;
-        margin-top: 20px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        border-radius: 8px;
-    }
-
-    .form-group {
-        width: 100%;
-    }
-
-    .grp-btn-form {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .grp-btn-form p {
-        margin: 5px 0;
-    }
-
-    /* Ajustement pour les détails des œuvres d'art */
-    .body-details {
-        padding: 10px;
-    }
-
-    .img-detail {
-        max-width: 100%;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .comment-section {
-        width: 100%;
-    }
-
-    .comment-input {
-        width: 100%;
-        border-radius: 6px;
-    }
 }

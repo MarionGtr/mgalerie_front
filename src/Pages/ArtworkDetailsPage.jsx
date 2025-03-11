@@ -171,7 +171,7 @@ const ArtworkDetailsPage = () => {
                 {isAuthenticated && (
                     <div className="comment-input">
 
-                        <FloatingLabel controlId="floatingTextarea" label="Ajouter un commentaire">
+                        <FloatingLabel controlId="floatingTextarea" label="Ajouter un commentaire..">
                             <Form.Control
                                 as="textarea"
                                 value={newComment}
