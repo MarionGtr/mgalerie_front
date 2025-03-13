@@ -19,6 +19,15 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    width:100%;
+    max-width:100%;
+    
+}
+
+* {
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 /* ------------------NAVBAR--------------------------------------------- */
@@ -66,16 +75,16 @@ body {
 
 .navbar-txt {
     text-decoration: none;
-    color: var(--blanc);
+    color: var(--noir);
     font-family: 'Lexend Deca', sans-serif;
+    font-weight: 500;
     font-size: 1.2vw;
 
 }
 
 .navbar-txt:hover {
-    color: var(--noir);
-    scale: 1.1;
-    transition: 0.6s ease-in;
+    color: var(--blanc);
+    transition: 0.5s ;
 }
 
 .nav-profil {
@@ -134,21 +143,20 @@ body {
     display: flex;
     flex-direction: row;
     margin-top: 12vh;
-    font-size: 2rem;
+    font-size: 1.8vw;
     color: var(--noir);
     font-family: 'Lexend Deca', sans-serif;
-    /* margin-bottom: 8vh; */
 }
 
 .bloc-courant h3 {
-    font-size: 1.4rem;
+    font-size: 1.2vw;
     color: var(--noir);
     text-decoration: none;
     font-family: 'Lexend Deca', sans-serif;
     background-color: var(--jaune);
     border: none;
     align-items: flex-start;
-    display: flex;
+   
 
 }
 
@@ -165,9 +173,10 @@ body {
     width: 100%;
     padding: 0.4vw;
     padding-top: 2vw;
-    gap: 2vh;
+    gap: 2vw ;
     justify-content: space-evenly;
-    align-items: center;
+    align-items:center;
+    margin:3vw;
 
 
 
@@ -184,6 +193,12 @@ body {
     max-width: 30vw;
     border-radius: 0 !important;
     border: rgb(161, 156, 156) 1px !important;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    transition: 0.2s ease-in;  
+   
 }
 
 .card-img {
@@ -238,9 +253,6 @@ body {
 .like-icon.liked svg {
     transform: scale(1.2);
 }
-
-
-
 
 
 /* --------PAGE OEUVRE DETAILS------------------------------------------------- */
@@ -757,7 +769,7 @@ body {
     margin-top: 3vw;
     background-color: #bab9ae37;
     width: 40vw;
-    margin-bottom: 2vw;
+    margin-bottom: 3vw;
     padding: 2vw;
     border-radius: 10px;
     box-shadow: 0 10px 20px -8px rgb(95, 93, 93) !important;
@@ -779,6 +791,7 @@ body {
     flex-direction: column;
     gap: 1vw;
     margin-top: 2vw;
+   
 
 }
 
@@ -796,23 +809,48 @@ body {
 }
 
 
-.btn-primary:hover {
-    transform: scale(1.05);
-    transition: 0.5s;
-}
-
 .btn-form {
     display: flex;
-    padding: 0vw !important;
+    padding: 0.5vw !important;
     font-family: "Lexend Deca", serif !important;
+    background-color: var(--bleu) !important;
+    width: fit-content;
+    font-size: 1.2rem !important;
+    position: relative;
+    overflow: hidden; 
+    z-index: 1; 
+    transition: color 0.2s, transform 0.2s, border-color 0.2s; 
+}
 
+.btn-form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--jaune) !important;
+    z-index: -1; 
+    transition: width 0.2s linear;
+    border-color: var(--jaune);
+}
+
+.btn-form:hover {
+    color: var(--noir) !important;
+    border-color: var(--jaune) !important;
+    transform: scale(1.05);
+    border-color: var(--jaune);
+}
+
+.btn-form:hover::before {
+    width: 100%; 
 }
 
 .grp-btn-form {
     display: flex;
     gap: 1vw;
     font-family: "Lexend Deca", serif;
-    justify-content: center;
+    justify-content: space-between;
 
 }
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HomePage from './Pages/HomePage'
 import SigninPage from './Pages/SigninPage'
@@ -49,6 +51,19 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
           </Route>
         </Routes>
+
+        <ToastContainer
+          position="bottom-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
 
         <Footer />
         </div>

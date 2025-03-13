@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Container, Button, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import UserService from '../Services/UserService';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 const Signin = () => {
     const [user, setUser] = useState({})
-
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -16,7 +16,6 @@ const Signin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // console.log(user)
         if (user.password !== user.verifyPassword) {
             alert("Les mots de passe ne correspondent pas")
 
@@ -24,9 +23,11 @@ const Signin = () => {
 
         try {
             const response = await UserService.signin(user)
+            toast.success("Inscription réussie!")
             navigate('/profil')
             // console.log(response)
         } catch (error) {
+            toast.error("Erreur lors de l'inscription, veuillez réessayer")
             console.error(error)
             return;
         }
@@ -66,12 +67,11 @@ const Signin = () => {
                     <Form.Label style={{ color: 'var(--bleu)' }}>Vérifier mot de passe</Form.Label>
                     <Form.Control name="verifyPassword" type="password" required value={user.verifyPassword} onChange={handleChange} />
                 </Form.Group>
-
-                <div className="text-end">
-                    <Button className="btn-form" type="submit" style={{ backgroundColor: 'var(--bleu)', border: 'none', color: 'white' }}>
+                <div className="d-flex justify-content-end">
+                    <Button className="btn-form" type="submit" >
                         Inscription
                     </Button>
-                </div>
+              </div>
             </Form>
         </div>
     </div>

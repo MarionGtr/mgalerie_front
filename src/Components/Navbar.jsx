@@ -4,9 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import AuthContext from '../Context/AuthContext';
-import { Button } from 'react-bootstrap';
 import AuthService from '../Services/AuthService';
 import StyleService from "../Services/StyleService";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
@@ -41,6 +41,8 @@ const NavBar = () => {
     setIsAuthenticated(false);
     AuthService.logout();
     setIsMenuOpen(false);
+    toast.error("Vous êtes maintenant déconnecté");
+    navigate('/');
   };
 
   const toggleMenu = () => {
