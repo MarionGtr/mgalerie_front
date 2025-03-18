@@ -10,11 +10,11 @@ function ArtworkCard({ artwork, onClick }) {
     const [liked, setLiked] = useState(false);
 
     const fetchLikedArtworks = async () => {
-        const user = JSON.parse(localStorage.getItem("user")); // Récupérer l'utilisateur connecté
+        const user = JSON.parse(localStorage.getItem("user"));
         if (!user) return;
     
         try {
-            const response = await LikeService.getLikes(); // Récupérer les likes depuis le serveur
+            const response = await LikeService.getLikes(); 
             if (response.status === 200) {
                 const likedArtworks = response.data.map((item) => item.id_artwork);
                 localStorage.setItem("likedArtworks_" + user.id, JSON.stringify(likedArtworks));
@@ -25,11 +25,10 @@ function ArtworkCard({ artwork, onClick }) {
         }
     };
 
-
     const handleLikeClick = async (e) => {
         e.stopPropagation();
     
-        const user = JSON.parse(localStorage.getItem("user")); // Récupérer l'utilisateur connecté
+        const user = JSON.parse(localStorage.getItem("user")); 
         console.log("Utilisateur récupéré :", user);
     
         if (!user || !user.id) {
@@ -44,7 +43,6 @@ function ArtworkCard({ artwork, onClick }) {
             if (!liked) {
                 // Ajouter un like
                 const response = await LikeService.addLike(artwork.id_artwork);
-    
                 if (response.status === 201) {
                     setLiked(true);
                     console.log("Ajout du like ok");
@@ -54,7 +52,7 @@ function ArtworkCard({ artwork, onClick }) {
             } else {
                 // Supprimer un like
                 const response = await LikeService.deleteLike(artwork.id_artwork);
-    
+
                 if (response.status === 201) {
                     setLiked(false);
                     console.log("Suppression du like ok");
@@ -72,7 +70,6 @@ function ArtworkCard({ artwork, onClick }) {
             fetchLikedArtworks();
         }
     }, [isAuthenticated]);
-
 
     return (
         <Card

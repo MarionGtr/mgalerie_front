@@ -113,13 +113,13 @@ const ArtworkDetailsPage = () => {
                         <h2>{artwork.artist}</h2>
                     </div>
                     <div className="art-description">
-                        <h3>{artwork.description}</h3>
+                        <h4>{artwork.description}</h4>
                     </div>
                     <div className="art-size">
-                        <h3>Dimensions : {artwork.size}</h3>
+                        <h4>Dimensions : {artwork.size}</h4>
                     </div>
                     <div className="art-creation_date">
-                        <h3>Crée en {artwork.creation_date}</h3>
+                        <h4>Crée en {artwork.creation_date}</h4>
                     </div>
                 </div>
 
@@ -140,7 +140,7 @@ const ArtworkDetailsPage = () => {
             <div className="bloc-comment">
 
                 <div className="comment-section">
-                    <h2>Espace commentaires </h2>
+                    <h4>Espace commentaires </h4>
                     {Array.isArray(comments) && comments.length > 0 ? (
 
                         comments.map((comment) => (
@@ -148,7 +148,7 @@ const ArtworkDetailsPage = () => {
                             <div key={comment.id_comment} className="comment-card">
 
                                 <h5 className="comment-username">{comment.username}</h5>
-                                <h4 className="comment-text">{comment.content}</h4>
+                                <h5 className="comment-text">{comment.content}</h5>
                                 <div className="comment-date">
                                     {new Date(comment.created_at).toLocaleDateString('fr-FR', {
                                         day: 'numeric',

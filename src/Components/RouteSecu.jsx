@@ -5,8 +5,6 @@ import AuthContext from "../Context/AuthContext";
 const RouteSecu = ({ role }) => {
     const { isAuthenticated, userRole } = useContext(AuthContext);
 
-    console.log("Vérification accès - Authentifié:", isAuthenticated, "Rôle:", userRole);
-
     if (!isAuthenticated) {
         return <Navigate to="/login" />;
     }

@@ -38,7 +38,6 @@ function isValid() {
         } else {
             setToken()
         } return true
-        //vérifie si le token est valide
     } else {
         logout()
         return false

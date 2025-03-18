@@ -46,7 +46,6 @@ function App() {
             <Route path="/user" element={<UserPage />} />
           </Route>
 
-          {/*  Route admin */}
           <Route element={<RouteSecu role="admin" />}>
             <Route path="/admin" element={<AdminPage />} />
           </Route>
