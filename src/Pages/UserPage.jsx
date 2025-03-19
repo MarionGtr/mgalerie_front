@@ -10,10 +10,6 @@ const UserPage = () => {
     const [user, setUser] = useState({});
     const [tempUser, setTempUser] = useState({}); //valeur temporaire lors de la saisie
     const navigate = useNavigate();
-
-    console.log("Valeur de isAuthenticated:", isAuthenticated);
-    console.log("Valeur de userRole:", userRole);
-
     const [usernameUpdate, setUsernameUpdate] = useState(false);
     const [nameUpdate, setNameUpdate] = useState(false);
     const [firstNameUpdate, setFirstNameUpdate] = useState(false);

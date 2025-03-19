@@ -1,7 +1,5 @@
 import axios from 'axios';
-
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-
 import config from '../config/url'
 
 function signin(user) {
