@@ -26,7 +26,7 @@ describe('mgalerie login', function() {
             .pause(5000)
 
         browser
-            .assert.urlContains('/profil')
+            .assert.urlContains('/profill')
             .waitForElementVisible(profilButton, 1000)
             .waitForElementVisible(logoutButton,1000)
             .click(logoutButton)
@@ -38,3 +38,7 @@ describe('mgalerie login', function() {
 
     browser.end()
 });
+
+
+
+
