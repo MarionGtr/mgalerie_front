@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import UserService from "../Services/UserService";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../Context/AuthContext";
+import { toast } from "react-toastify";
 
 const ResetPassword = () => {
     const { user } = useContext(AuthContext); // Récupère l'email du contexte
@@ -38,6 +39,7 @@ const ResetPassword = () => {
             console.log("Réponse API :", response.data);
     
             setSuccess(true);
+            toast.success("Mot de passe réinitialisé avec succès.");
             setTimeout(() => navigate("/login"), 2000);
         } catch (error) {
             console.error("Erreur Axios :", error.response ? error.response.data : error.message);
@@ -47,63 +49,90 @@ const ResetPassword = () => {
     
     
     return (
-        <>
-            <h2>Réinitialisation du mot de passe</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            {success && <p style={{ color: "green" }}>Mot de passe modifié avec succès ! Redirection...</p>}
-
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Adresse mail</Form.Label>
-                    <Form.Control
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                    <Form.Label>Code reçu par email</Form.Label>
-                    <Form.Control
-                        name="token"
-                        type="text"
-                        placeholder="Entrez le code"
-                        required
-                        value={formData.token}
-                        onChange={handleChange}
-                    />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                    <Form.Label>Nouveau mot de passe</Form.Label>
-                    <Form.Control
-                        name="newPassword"
-                        type="password"
-                        placeholder="Nouveau mot de passe"
-                        required
-                        value={formData.newPassword}
-                        onChange={handleChange}
-                    />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                    <Form.Label>Confirmer le mot de passe</Form.Label>
-                    <Form.Control
-                        name="confirmPassword"
-                        type="password"
-                        placeholder="Confirmez le mot de passe"
-                        required
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                    />
-                </Form.Group>
-
-                <Button variant="outline-dark" type="submit">
-                    Réinitialiser le mot de passe
-                </Button>
-            </Form>
-        </>
+        <div className="form-container">
+        <div className="bloc-form">
+          <h1 className="mb-4 d-flex justify-content-start">
+            Réinitialisation du mot de passe
+          </h1>
+          
+          {error && (
+            <div className="alert alert-danger mb-3" role="alert">
+              {error}
+            </div>
+          )}
+          
+          {success && (
+            <div className="alert alert-success mb-3" role="alert">
+              Mot de passe modifié avec succès ! Redirection...
+            </div>
+          )}
+          
+          <Form className="global-form" onSubmit={handleSubmit}>
+            <Form.Group className="form-group">
+              <Form.Label style={{ color: 'var(--bleu)' }}>
+                Adresse mail
+              </Form.Label>
+              <Form.Control
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            
+            <Form.Group className="form-group">
+              <Form.Label style={{ color: 'var(--bleu)' }}>
+                Code reçu par email
+              </Form.Label>
+              <Form.Control
+                name="token"
+                type="text"
+                placeholder="Entrez le code"
+                required
+                value={formData.token}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            
+            <Form.Group className="form-group">
+              <Form.Label style={{ color: 'var(--bleu)' }}>
+                Nouveau mot de passe
+              </Form.Label>
+              <Form.Control
+                name="newPassword"
+                type="password"
+                placeholder="Nouveau mot de passe"
+                required
+                value={formData.newPassword}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            
+            <Form.Group className="form-group">
+              <Form.Label style={{ color: 'var(--bleu)' }}>
+                Confirmer le mot de passe
+              </Form.Label>
+              <Form.Control
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirmez le mot de passe"
+                required
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            
+            <div className="d-flex justify-content-end mt-4">
+              <Button 
+                className="btn-form" 
+                type="submit"
+              >
+                Réinitialiser le mot de passe
+              </Button>
+            </div>
+          </Form>
+        </div>
+      </div>
     );
 };
 
