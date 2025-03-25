@@ -87,16 +87,19 @@ const UserPage = () => {
                 <div className="ligne-moncompte">
                     <div className="user-libelle"><h2>Profil de</h2></div>
                     {usernameUpdate ? (
-                        <>
-                            {/* tempUser stock la valeur dans l'input sans toucher user */}
-                            <input type="text" name="username" value={tempUser.username || ""} onChange={handleChange} />
+                        <div className="edit-container">
+                            <input
+                                type="text"
+                                name="username"
+                                value={tempUser.username || ""}
+                                onChange={handleChange}
+                            />
                             <Button variant="danger" onClick={() => handleCancel(setUsernameUpdate)}>Annuler</Button>
                             <Button variant="light" onClick={handleSubmit}>Valider</Button>
-                        </>
+                        </div>
                     ) : (
                         <>
                             <h2>{user.username}</h2>
-                            {/* remplie tempUser avec les valeurs actuelles avant d'ouvrir l'input */}
                             <Button variant="light" onClick={() => { setUsernameUpdate(true); setTempUser(user); }}>
                                 <img src="src/assets/logos/editer.png" alt="modify" />
                             </Button>

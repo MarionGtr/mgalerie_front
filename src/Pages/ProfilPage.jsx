@@ -53,7 +53,6 @@ const ProfilPage = () => {
     };
 
     const handleUnlike = (artworkId) => {
-        // Met à jour l'état likedArtworks pour retirer l'œuvre instantanément
         setLikedArtworks((prev) => prev.filter((artwork) => artwork.id_artwork !== artworkId));
     };
 
@@ -100,7 +99,7 @@ const ProfilPage = () => {
                                 key={artwork.id_artwork}
                                 artwork={artwork}
                                 onClick={() => navigate("/artworkByID/" + artwork.id_artwork)}
-                                onUnlike={handleUnlike} // On passe la fonction au composant
+                                onUnlike={handleUnlike} 
                             />
                         ))}
                     </div>

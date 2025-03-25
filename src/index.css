@@ -565,14 +565,19 @@ body {
 
 .ligne-moncompte {
     display: flex;
-    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
-    padding: 0;
+    padding: 0.5rem 0;
     border-bottom: #8f22228c 1px solid;
-    font-family: "Lexend", serif;
-    font-optical-sizing: auto;
-    font-weight: 200;
+}
 
+.ligne-moncompte input {
+    flex-grow: 1;
+    padding: 0.3rem 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
 }
 
 .ligne-moncompte h2 {
@@ -589,9 +594,16 @@ body {
     box-shadow: 0 10px 20px -8px rgba(95, 93, 93, 0.671) !important;
     background-color: #cd3333 !important;
     border-color: #5c1c1c !important;
+    margin-left: 0.5rem;
     /* padding:0.4vw !important; */
 }
 
+.edit-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 70%;
+}
 .user-api {
     color: #ffffff;
     display: flex;
