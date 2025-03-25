@@ -63,8 +63,10 @@ const ProfilPage = () => {
     return (
         <div className="profil-body">
             <div className="profil-info">
+                <div className="profil-top">
                 <h1>{user.username}</h1>
                 <Button variant="light" onClick={() => navigate("/user")}>Voir plus</Button>
+                </div>
                 <div className="user-comment">
                     <h2>Derniers commentaires </h2>
                     {userComments.length > 0 ? (

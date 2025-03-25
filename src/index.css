@@ -476,12 +476,20 @@ body {
     display: flex;
     justify-content: center;
     font-size: 2.2vw;
+    text-transform: uppercase;
 
 
 }
 
 .profil-info h2 {
     margin-top: 18vh;
+}
+
+.profil-top {
+    display: flex;
+    flex-direction: column;
+    padding-top:4vh;
+    gap: 4vh;
 }
 
 .profil-info Button {
@@ -942,6 +950,9 @@ body {
     /* HOME PAGE */
     .body-homepage {
         flex-direction: column;
+        width: 100%;
+        max-width: fit-content;
+        margin: 0;
     }
 
     .bloc-courant {
@@ -967,6 +978,7 @@ body {
         max-width: 100%;
         padding: 10px 15px;
         box-sizing: border-box;
+        margin: 0;
     }
 
     /* CARDS */
@@ -1059,11 +1071,22 @@ body {
 
     .profil-info h1 {
         font-size: 22px;
+        text-transform: uppercase;
+
     }
 
     .profil-info h2 {
         font-size: 20px;
         margin-top: 25px;
+    }
+
+    .profil-top {
+        display: flex;
+        flex-direction: row;
+        padding-top: 2vh;
+        justify-content: space-around;
+        align-items: first baseline;
+        width: 70%;
     }
 
     .user-comment ul {
