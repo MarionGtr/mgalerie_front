@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ArtworkService from '../services/ArtworkService';
 import axios from 'axios';
 
@@ -14,6 +14,8 @@ const AdminPage = () => {
         creation_date: '',
         image_url: '',
     });
+    
+    const formRef = useRef(null); 
 
     useEffect(() => {
         loadArtworks();
@@ -49,15 +51,12 @@ const AdminPage = () => {
             }  
             handleUpload();
             loadArtworks();
-          
             resetForm();
         } catch (error) {
             console.error("Erreur lors de l'opération:", error);
             alert("Erreur lors de l'opération");
         }
     };
-
-
     const handleUpload = async () => {
       
         // try {
@@ -111,6 +110,7 @@ const AdminPage = () => {
             creation_date: artwork.creation_date,
             image_url: artwork.image_url,
         });
+        formRef.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     const resetForm = () => {
@@ -129,7 +129,7 @@ const AdminPage = () => {
         <div className="admin-container">
             <h1>Gestion des Œuvres</h1>
 
-            <form onSubmit={handleSubmit} className="admin-form">
+            <form ref={formRef} onSubmit={handleSubmit} className="admin-form">
                 <h2>{selectedArtwork ? "Modifier une œuvre" : "Ajouter une œuvre"}</h2>
                 
                 <div className="form-grid">
@@ -166,14 +166,12 @@ const AdminPage = () => {
                         required
                     />
                   
-                        <input
-                            type="file"
-                            name="file"
-                            onChange={(e) => setFile(e.target.files[0])}
-                        />
+                    <input
+                        type="file"
+                        name="file"
+                        onChange={(e) => setFile(e.target.files[0])}
+                    />
                         
-               
-
                     <textarea
                         name="description"
                         value={formData.description}
@@ -219,7 +217,7 @@ const AdminPage = () => {
                                 <td>{artwork.artist}</td>
                                 <td>{artwork.description}</td>
                                 <td>{artwork.size}</td>
-                                <td>{new Date(artwork.creation_date).toLocaleDateString()}</td>
+                                <td>{artwork.creation_date}</td> 
                                 <td className="action-buttons">
                                     <button
                                         onClick={() => handleEdit(artwork)}
