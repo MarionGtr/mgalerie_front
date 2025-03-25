@@ -14,7 +14,7 @@ const ProfilPage = () => {
     const [user, setUser] = useState({});
     const [likedArtworks, setLikedArtworks] = useState([]);
     const [userComments, setUserComments] = useState([]);
-    const [updatedUser, setUpdatedUser] = useState(AuthService.getMailUser()); 
+    const [updatedUser, setUpdatedUser] = useState(AuthService.getMailUser());
     const navigate = useNavigate();
 
 
@@ -37,12 +37,12 @@ const ProfilPage = () => {
     };
 
     const fetchUserComments = async () => {
-        const currentUser = AuthService.getMailUser(); 
+        const currentUser = AuthService.getMailUser();
         if (currentUser && currentUser.id) {
-            console.log("ID Utilisateur connecté : ", currentUser.id); 
+            console.log("ID Utilisateur connecté : ", currentUser.id);
             try {
                 const response = await CommentService.getUsersComments(currentUser.id);
-                console.log("Réponse API : ", response.data); 
+                console.log("Réponse API : ", response.data);
                 setUserComments(response.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des commentaires : ", error);
@@ -51,6 +51,12 @@ const ProfilPage = () => {
             console.log("Utilisateur non authentifié ou ID utilisateur manquant");
         }
     };
+
+    const handleUnlike = (artworkId) => {
+        // Met à jour l'état likedArtworks pour retirer l'œuvre instantanément
+        setLikedArtworks((prev) => prev.filter((artwork) => artwork.id_artwork !== artworkId));
+    };
+
 
     useEffect(() => {
         fetchUser();
@@ -64,8 +70,8 @@ const ProfilPage = () => {
         <div className="profil-body">
             <div className="profil-info">
                 <div className="profil-top">
-                <h1>{user.username}</h1>
-                <Button variant="light" onClick={() => navigate("/user")}>Voir plus</Button>
+                    <h1>{user.username}</h1>
+                    <Button variant="light" onClick={() => navigate("/user")}>Voir plus</Button>
                 </div>
                 <div className="user-comment">
                     <h2>Derniers commentaires </h2>
@@ -94,13 +100,14 @@ const ProfilPage = () => {
                                 key={artwork.id_artwork}
                                 artwork={artwork}
                                 onClick={() => navigate("/artworkByID/" + artwork.id_artwork)}
-                                
+                                onUnlike={handleUnlike} // On passe la fonction au composant
                             />
                         ))}
                     </div>
                 ) : (
                     <p>Aucune œuvre likée.</p>
                 )}
+
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ import { Heart } from "lucide-react";
 import AuthContext from "../Context/AuthContext";
 import LikeService from "../Services/LikeService"; 
 
-function ArtworkCard({ artwork, onClick }) {
+function ArtworkCard({ artwork, onClick, onUnlike }) {
     const { isAuthenticated } = useContext(AuthContext); 
     const [liked, setLiked] = useState(false);
 
@@ -37,31 +37,24 @@ function ArtworkCard({ artwork, onClick }) {
         }
     
         try {
-            const likedArtworksKey = "likedArtworks_" + user.id;
-            let likedArtworks = JSON.parse(localStorage.getItem(likedArtworksKey)) || [];
-    
-            if (!liked) {
-                // Ajouter un like
+            if (liked) {
+                const response = await LikeService.deleteLike(artwork.id_artwork);
+                if (response.status === 201) {
+                    setLiked(false);
+                    console.log("Suppression du like ok");
+                    if (onUnlike) {
+                        onUnlike(artwork.id_artwork);
+                    }
+                }
+            } else {
                 const response = await LikeService.addLike(artwork.id_artwork);
                 if (response.status === 201) {
                     setLiked(true);
                     console.log("Ajout du like ok");
-                    likedArtworks.push(artwork.id_artwork);
-                    localStorage.setItem(likedArtworksKey, JSON.stringify(likedArtworks));
-                }
-            } else {
-                // Supprimer un like
-                const response = await LikeService.deleteLike(artwork.id_artwork);
-
-                if (response.status === 201) {
-                    setLiked(false);
-                    console.log("Suppression du like ok");
-                    likedArtworks = likedArtworks.filter((id) => id !== artwork.id_artwork);
-                    localStorage.setItem(likedArtworksKey, JSON.stringify(likedArtworks));
                 }
             }
         } catch (error) {
-            console.error(liked ? "Erreur lors de la suppression du like :" : "Erreur lors de l'ajout du like :", error);
+            console.error("Erreur lors du changement de like :", error);
         }
     };
     

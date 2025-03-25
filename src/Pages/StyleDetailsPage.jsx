@@ -39,12 +39,12 @@ const StyleDetails = () => {
         }
     };
 
-    // Add dependency on id parameter to reload data when it changes
+
     useEffect(() => {
         fetchStyleByID();
         fetchArtworkByStyle();
         fetchArtworkImages();
-    }, [id]);  // This ensures the component updates when the id parameter changes
+    }, [id]); 
 
     return (
         <div className="bloc-style-details">
