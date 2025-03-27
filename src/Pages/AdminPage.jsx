@@ -147,7 +147,7 @@ const AdminPage = () => {
 
             {activeTab === 'artworks' && (
                 <>
-                    <h1>Gestion des Œuvres</h1>
+                    <h1 className='admin-title'>Gestion des Œuvres</h1>
 
                     <form ref={formRef} onSubmit={handleSubmit} className="admin-form">
                         <h2>{selectedArtwork ? "Modifier une œuvre" : "Ajouter une œuvre"}</h2>
@@ -264,7 +264,7 @@ const AdminPage = () => {
 
             {activeTab === 'users' && (
                 <div>
-                    <h1>Gestion des Utilisateurs</h1>
+                    <h1 className='admin-title'>Gestion des Utilisateurs</h1>
                     <div className="table-container">
                         <table className="users-table">
                             <thead>

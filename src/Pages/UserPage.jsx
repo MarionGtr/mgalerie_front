@@ -110,11 +110,11 @@ const UserPage = () => {
                 <div className="ligne-moncompte">
                     <div className="user-libelle"><h2>Email</h2></div>
                     {nameUpdate ? (
-                        <>
+                       <div className="edit-container">
                             <input type="text" name="email" value={tempUser.email || ""} onChange={handleChange} />
                             <Button variant="danger" onClick={() => handleCancel(setNameUpdate)}>Annuler</Button>
                             <Button variant="light" onClick={handleSubmit}>Valider</Button>
-                        </>
+                        </div>
                     ) : (
                         <>
                             <h2>{user.email}</h2>
@@ -128,11 +128,11 @@ const UserPage = () => {
                 <div className="ligne-moncompte">
                     <div className="user-libelle"><h2>Prénom</h2></div>
                     {firstNameUpdate ? (
-                        <>
+                        <div className="edit-container">
                             <input type="text" name="first_name" value={tempUser.first_name || ""} onChange={handleChange} />
                             <Button variant="danger" onClick={() => handleCancel(setFirstNameUpdate)}>Annuler</Button>
                             <Button variant="light" onClick={handleSubmit}>Valider</Button>
-                        </>
+                        </div>
                     ) : (
                         <>
                             <h2>{user.first_name}</h2>
@@ -146,11 +146,11 @@ const UserPage = () => {
                 <div className="ligne-moncompte">
                     <div className="user-libelle"><h2>Nom</h2></div>
                     {lastNameUpdate ? (
-                        <>
+                        <div className="edit-container">
                             <input type="text" name="last_name" value={tempUser.last_name || ""} onChange={handleChange} />
                             <Button variant="danger" onClick={() => handleCancel(setLastNameUpdate)}>Annuler</Button>
                             <Button variant="light" onClick={handleSubmit}>Valider</Button>
-                        </>
+                        </div>
                     ) : (
                         <>
                             <h2>{user.last_name}</h2>
