@@ -210,7 +210,7 @@ const AdminPage = () => {
                                 <Button
                                     type="button"
                                     onClick={resetForm}
-                                    className="cancel-button"
+                                    className="btn-form"
                                 >
                                     Annuler
                                 </Button>
