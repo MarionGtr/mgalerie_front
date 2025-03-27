@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import ArtworkService from '../services/ArtworkService';
 import axios from 'axios';
 import UserService from '../Services/UserService';
+import { Button } from 'react-bootstrap';
 
 const AdminPage = () => {
     const [artworks, setArtworks] = useState([]);
     const [selectedArtwork, setSelectedArtwork] = useState(null);
-    const [file, setFile]= useState(null);
+    const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
         title: '',
         artist: '',
@@ -15,11 +16,11 @@ const AdminPage = () => {
         creation_date: '',
         image_url: '',
     });
-    
+
     const [users, setUsers] = useState([]);
     const [activeTab, setActiveTab] = useState('artworks');
 
-    const formRef = useRef(null); 
+    const formRef = useRef(null);
 
     useEffect(() => {
         loadArtworks();
@@ -76,7 +77,7 @@ const AdminPage = () => {
             } else {
                 await ArtworkService.addArtwork(formData);
                 alert("Œuvre ajoutée avec succès");
-            }  
+            }
             handleUpload();
             loadArtworks();
             resetForm();
@@ -128,18 +129,20 @@ const AdminPage = () => {
     return (
         <div className="admin-container">
             <div className="tab-navigation">
-                <button 
+                <Button
                     onClick={() => setActiveTab('artworks')}
-                    className={activeTab === 'artworks' ? 'active' : ''}
+                    className={`btn-form ${activeTab === 'artworks' ? 'active' : ''}`}
+                    variant="primary"
                 >
                     Gestion des Œuvres
-                </button>
-                <button 
+                </Button>
+                <Button
                     onClick={() => setActiveTab('users')}
-                    className={activeTab === 'users' ? 'active' : ''}
+                    className={`btn-form ${activeTab === 'users' ? 'active' : ''}`}
+                    variant="primary"
                 >
                     Gestion des Utilisateurs
-                </button>
+                </Button>
             </div>
 
             {activeTab === 'artworks' && (
@@ -148,7 +151,7 @@ const AdminPage = () => {
 
                     <form ref={formRef} onSubmit={handleSubmit} className="admin-form">
                         <h2>{selectedArtwork ? "Modifier une œuvre" : "Ajouter une œuvre"}</h2>
-                        
+
                         <div className="form-grid">
                             <input
                                 type="text"
@@ -182,13 +185,13 @@ const AdminPage = () => {
                                 placeholder="Date(s) de création"
                                 required
                             />
-                          
+
                             <input
                                 type="file"
                                 name="file"
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
-                                
+
                             <textarea
                                 name="description"
                                 value={formData.description}
@@ -200,17 +203,17 @@ const AdminPage = () => {
                         </div>
 
                         <div className="button-group">
-                            <button type="submit" className="submit-button">
+                            <Button type="submit" className="btn-form">
                                 {selectedArtwork ? "Modifier" : "Ajouter"}
-                            </button>
+                            </Button>
                             {selectedArtwork && (
-                                <button
+                                <Button
                                     type="button"
                                     onClick={resetForm}
                                     className="cancel-button"
                                 >
                                     Annuler
-                                </button>
+                                </Button>
                             )}
                         </div>
                     </form>
@@ -224,7 +227,7 @@ const AdminPage = () => {
                                     <th>Description</th>
                                     <th>Dimensions</th>
                                     <th>Date de création</th>
-                                    <th>Actions</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -234,20 +237,22 @@ const AdminPage = () => {
                                         <td>{artwork.artist}</td>
                                         <td>{artwork.description}</td>
                                         <td>{artwork.size}</td>
-                                        <td>{artwork.creation_date}</td> 
+                                        <td>{artwork.creation_date}</td>
                                         <td className="action-buttons">
-                                            <button
+                                            <Button
                                                 onClick={() => handleEdit(artwork)}
                                                 className="edit-button"
+                                                variant="warning"
                                             >
                                                 Modifier
-                                            </button>
-                                            <button
+                                            </Button>
+                                            <Button
                                                 onClick={() => handleDelete(artwork.id_artwork)}
                                                 className="delete-button"
+                                                variant="danger"
                                             >
                                                 Supprimer
-                                            </button>
+                                            </Button>
                                         </td>
                                     </tr>
                                 ))}
@@ -268,7 +273,7 @@ const AdminPage = () => {
                                     <th>Nom</th>
                                     <th>Pseudo</th>
                                     <th>Email</th>
-                                    <th>Actions</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -279,12 +284,13 @@ const AdminPage = () => {
                                         <td>{user.username}</td>
                                         <td>{user.email}</td>
                                         <td className="action-buttons">
-                                            <button
+                                            <Button
                                                 onClick={() => handleDeleteUser(user.id_user)}
                                                 className="delete-button"
+                                                variant="danger"
                                             >
                                                 Supprimer
-                                            </button>
+                                            </Button>
                                         </td>
                                     </tr>
                                 ))}
