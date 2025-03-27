@@ -3,7 +3,8 @@ import StyleService from "../Services/StyleService";
 import { useNavigate, useParams } from "react-router-dom";
 import PossederService from "../Services/PossederService";
 import ArtworkCard from "../Components/ArtworkCard";
-import ArtworkService from "../Services/ArtworkService";
+import ArtworkService from "../services/ArtworkService";
+
 
 const StyleDetails = () => {
     const { id } = useParams();
@@ -49,9 +50,20 @@ const StyleDetails = () => {
     return (
         <div className="bloc-style-details">
             <div className="style-details">
+                <div>
+                    <div className="style-title">
                 <h1>{style.style}</h1>
-                <h3>{style.style_description}</h3>
-                <h3>Période : {style.period}</h3>
+                    </div>
+                    <div className="style-period">
+                <h4>Période : {style.period}</h4>
+                    </div>
+                </div>
+                <div>
+                    <div className="style-description">
+                <h4>{style.style_description}</h4>
+                    </div>
+                </div>
+
             </div>
             <div className="artwork-by-style">
                 {byStyle && byStyle.map((image, index) => (

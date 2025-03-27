@@ -108,7 +108,7 @@ body {
     background-color: var(--bleu);
     display: flex;
     justify-content: center;
-    padding: 1.2vw;
+    padding: 1.4vw;
     color: var(--blanc);
     align-items: center;
     margin-top: auto;
@@ -358,8 +358,6 @@ body {
     display: flex;
 }
 
-
-/* Image en grand */
 .modal-content {
     max-width: 90vw;
     max-height: 90vh;
@@ -370,19 +368,14 @@ body {
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
     transition: transform 0.3s ease-in-out;
     margin: 0;
-    /* Élimine les marges par défaut */
     display: block;
-    /* Assure que l'image est traitée comme un bloc */
     padding: 0;
-    /* Élimine tout padding potentiel */
 }
 
 .modal-content:hover {
     cursor: zoom-out;
 }
 
-
-/*Bouton de fermeture */
 .close {
     position: absolute;
     top: 15px;
@@ -599,7 +592,6 @@ body {
     background-color: #cd3333 !important;
     border-color: #5c1c1c !important;
     margin-left: 0.5rem;
-    /* padding:0.4vw !important; */
 }
 
 .edit-container {
@@ -670,15 +662,12 @@ body {
 }
 
 .admin-title {
-    font-family: 'Lexend Mega', sans-serif;
-    font-size: 2vw !important;
-    margin-bottom: 2vw;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 2vw;
+    margin-bottom: 1vw;
 }
 
-.admin-container h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
+
 
 .admin-form {
     background-color: #f5f5f5;
@@ -737,7 +726,7 @@ body {
 
 .users-table th,
 .users-table td {
-    min-width: 10vw; /* Ajuste selon le besoin */
+    min-width: 10vw;
 }
 
 .artwork-table th,
@@ -764,7 +753,6 @@ body {
     background-color: #f5f5f5;
 }
 
-/* Boutons d'action dans les tableaux */
 .action-buttons {
     display: flex;
     gap: 8px;
@@ -899,25 +887,60 @@ body {
 
 /* ----------- PAGE DETAIL COURANT-------------- */
 .bloc-style-details {
-    margin: 2vw;
+    box-shadow:rgb(95, 93, 93) 0 10px 10px -8px;
+    display:flex;
 }
 
 .style-details {
     display: flex;
-    flex-direction: column;
-    gap: 2vw;
+    flex-direction: row;
     font-family: 'Lexend Deca', sans-serif;
     color: var(--noir);
+    position: relative;
+}
+
+.style-title {
+    background-color: var(--blanc);
+    padding:3vw;
+    font-family: 'lexend Mega', sans-serif;
+    border-top: var(--noir) 20px solid;
+
+}
+
+.style-description {
+    background-color: var(--bleu);
+    color:var(--blanc);
+    width:24vw;
+    padding:4vw;
+    padding-top:3vw;
+    position:relative;
+    height:100%;
+    border-left:var(--noir) 20px solid;
+    border-right:var(--noir) 20px solid;
+    border-top: var(--noir) 20px solid;
+    align-content: flex-start;
+    
+}
+
+
+.style-period {
+    background-color: var(--jaune);
+    padding: 1.4vw;
+    border-top: var(--noir) 20px solid;
+
 }
 
 .artwork-by-style {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 1vw;
+    gap: 3vw;
     justify-content: center;
     align-content: center;
     align-items: center;
+    padding-top: 4vw;
+    margin-bottom: 4vw;
+    border-top: var(--noir) 20px solid;
 }
 
 .style-img {
