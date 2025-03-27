@@ -17,6 +17,10 @@ function profil() {
     
 }
 
+function allUsers() {
+    return axios.get(config.url+'/user/allUsers')
+}
+
 function updateUser(id, updateUser){
     return axios.post(config.url + '/user/updateUser/' + id, updateUser)
 }
@@ -35,5 +39,5 @@ function ResetPassword(data){
 
 
 export default { 
-    signin, login, profil, updateUser, deleteMyAccount, SendCode, ResetPassword
+    signin, login, profil, allUsers, updateUser, deleteMyAccount, SendCode, ResetPassword
  }

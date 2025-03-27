@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ArtworkService from '../services/ArtworkService';
 import axios from 'axios';
+import UserService from '../Services/UserService';
 
 const AdminPage = () => {
     const [artworks, setArtworks] = useState([]);
@@ -15,10 +16,14 @@ const AdminPage = () => {
         image_url: '',
     });
     
+    const [users, setUsers] = useState([]);
+    const [activeTab, setActiveTab] = useState('artworks');
+
     const formRef = useRef(null); 
 
     useEffect(() => {
         loadArtworks();
+        loadUsers();
     }, []);
 
     const loadArtworks = async () => {
@@ -28,6 +33,29 @@ const AdminPage = () => {
         } catch (error) {
             console.error("Erreur lors du chargement des œuvres:", error);
             alert("Erreur lors du chargement des œuvres");
+        }
+    };
+
+    const loadUsers = async () => {
+        try {
+            const response = await UserService.allUsers();
+            setUsers(response.data);
+        } catch (error) {
+            console.error("Erreur lors du chargement des utilisateurs:", error);
+            alert("Erreur lors du chargement des utilisateurs");
+        }
+    };
+
+    const handleDeleteUser = async (userId) => {
+        if (window.confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
+            try {
+                await UserService.deleteMyAccount(userId);
+                alert("Utilisateur supprimé avec succès");
+                loadUsers();
+            } catch (error) {
+                console.error("Erreur lors de la suppression de l'utilisateur:", error);
+                alert("Erreur lors de la suppression de l'utilisateur");
+            }
         }
     };
 
@@ -57,35 +85,7 @@ const AdminPage = () => {
             alert("Erreur lors de l'opération");
         }
     };
-    const handleUpload = async () => {
-      
-        // try {
-            // if (!file) return;
-            
-            const formDataUpload = new FormData();
-            formDataUpload.append("file", file);
-            formDataUpload.append("name", "test");
-            
-            const response = await axios.post("http://127.0.0.1:3000/image", formDataUpload, {
-              
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-                
-            });
-            //   console.log(response)
-            // // Update image_url in form with the response
-            // setFormData(prev => ({
-            //     ...prev,
-            //     image_url: file.filename // Adjust based on your API response
-            // }));
-            
-        //     setFile(null);
-        // } catch (error) {
-        //     console.error("Erreur lors de l'upload:", error);
-        //     alert("Erreur lors de l'upload de l'image");
-        }
-    // };
+
 
     const handleDelete = async (id) => {
         if (window.confirm("Êtes-vous sûr de vouloir supprimer cette œuvre ?")) {
@@ -127,116 +127,172 @@ const AdminPage = () => {
 
     return (
         <div className="admin-container">
-            <h1>Gestion des Œuvres</h1>
-
-            <form ref={formRef} onSubmit={handleSubmit} className="admin-form">
-                <h2>{selectedArtwork ? "Modifier une œuvre" : "Ajouter une œuvre"}</h2>
-                
-                <div className="form-grid">
-                    <input
-                        type="text"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleInputChange}
-                        placeholder="Titre"
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="artist"
-                        value={formData.artist}
-                        onChange={handleInputChange}
-                        placeholder="Artiste"
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="size"
-                        value={formData.size}
-                        onChange={handleInputChange}
-                        placeholder="Dimensions"
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="creation_date"
-                        value={formData.creation_date}
-                        onChange={handleInputChange}
-                        placeholder="Date(s) de création"
-                        required
-                    />
-                  
-                    <input
-                        type="file"
-                        name="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                    />
-                        
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleInputChange}
-                        placeholder="Description"
-                        required
-                        className="description-input"
-                    />
-                </div>
-
-                <div className="button-group">
-                    <button type="submit" className="submit-button">
-                        {selectedArtwork ? "Modifier" : "Ajouter"}
-                    </button>
-                    {selectedArtwork && (
-                        <button
-                            type="button"
-                            onClick={resetForm}
-                            className="cancel-button"
-                        >
-                            Annuler
-                        </button>
-                    )}
-                </div>
-            </form>
-
-            <div className="table-container">
-                <table className="artwork-table">
-                    <thead>
-                        <tr>
-                            <th>Titre</th>
-                            <th>Artiste</th>
-                            <th>Description</th>
-                            <th>Dimensions</th>
-                            <th>Date de création</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {artworks.map((artwork) => (
-                            <tr key={artwork.id_artwork}>
-                                <td>{artwork.title}</td>
-                                <td>{artwork.artist}</td>
-                                <td>{artwork.description}</td>
-                                <td>{artwork.size}</td>
-                                <td>{artwork.creation_date}</td> 
-                                <td className="action-buttons">
-                                    <button
-                                        onClick={() => handleEdit(artwork)}
-                                        className="edit-button"
-                                    >
-                                        Modifier
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(artwork.id_artwork)}
-                                        className="delete-button"
-                                    >
-                                        Supprimer
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            <div className="tab-navigation">
+                <button 
+                    onClick={() => setActiveTab('artworks')}
+                    className={activeTab === 'artworks' ? 'active' : ''}
+                >
+                    Gestion des Œuvres
+                </button>
+                <button 
+                    onClick={() => setActiveTab('users')}
+                    className={activeTab === 'users' ? 'active' : ''}
+                >
+                    Gestion des Utilisateurs
+                </button>
             </div>
+
+            {activeTab === 'artworks' && (
+                <>
+                    <h1>Gestion des Œuvres</h1>
+
+                    <form ref={formRef} onSubmit={handleSubmit} className="admin-form">
+                        <h2>{selectedArtwork ? "Modifier une œuvre" : "Ajouter une œuvre"}</h2>
+                        
+                        <div className="form-grid">
+                            <input
+                                type="text"
+                                name="title"
+                                value={formData.title}
+                                onChange={handleInputChange}
+                                placeholder="Titre"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="artist"
+                                value={formData.artist}
+                                onChange={handleInputChange}
+                                placeholder="Artiste"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="size"
+                                value={formData.size}
+                                onChange={handleInputChange}
+                                placeholder="Dimensions"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="creation_date"
+                                value={formData.creation_date}
+                                onChange={handleInputChange}
+                                placeholder="Date(s) de création"
+                                required
+                            />
+                          
+                            <input
+                                type="file"
+                                name="file"
+                                onChange={(e) => setFile(e.target.files[0])}
+                            />
+                                
+                            <textarea
+                                name="description"
+                                value={formData.description}
+                                onChange={handleInputChange}
+                                placeholder="Description"
+                                required
+                                className="description-input"
+                            />
+                        </div>
+
+                        <div className="button-group">
+                            <button type="submit" className="submit-button">
+                                {selectedArtwork ? "Modifier" : "Ajouter"}
+                            </button>
+                            {selectedArtwork && (
+                                <button
+                                    type="button"
+                                    onClick={resetForm}
+                                    className="cancel-button"
+                                >
+                                    Annuler
+                                </button>
+                            )}
+                        </div>
+                    </form>
+
+                    <div className="table-container">
+                        <table className="artwork-table">
+                            <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Artiste</th>
+                                    <th>Description</th>
+                                    <th>Dimensions</th>
+                                    <th>Date de création</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {artworks.map((artwork) => (
+                                    <tr key={artwork.id_artwork}>
+                                        <td>{artwork.title}</td>
+                                        <td>{artwork.artist}</td>
+                                        <td>{artwork.description}</td>
+                                        <td>{artwork.size}</td>
+                                        <td>{artwork.creation_date}</td> 
+                                        <td className="action-buttons">
+                                            <button
+                                                onClick={() => handleEdit(artwork)}
+                                                className="edit-button"
+                                            >
+                                                Modifier
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(artwork.id_artwork)}
+                                                className="delete-button"
+                                            >
+                                                Supprimer
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            )}
+
+            {activeTab === 'users' && (
+                <div>
+                    <h1>Gestion des Utilisateurs</h1>
+                    <div className="table-container">
+                        <table className="users-table">
+                            <thead>
+                                <tr>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>Pseudo</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users.map((user) => (
+                                    <tr key={user.id_user}>
+                                        <td>{user.first_name}</td>
+                                        <td>{user.last_name}</td>
+                                        <td>{user.username}</td>
+                                        <td>{user.email}</td>
+                                        <td className="action-buttons">
+                                            <button
+                                                onClick={() => handleDeleteUser(user.id_user)}
+                                                className="delete-button"
+                                            >
+                                                Supprimer
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
