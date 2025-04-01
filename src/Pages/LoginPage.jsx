@@ -26,7 +26,7 @@ const LoginPage = () => {
         e.preventDefault()
         try {
             const response = await UserService.login(user)
-            toast.success("Connexion réussie")
+            toast.success("Connexion réussie !")
             // précise le token pour toutes les requêtes axios
             axios.defaults.headers['Authorization'] = `Bearer ${response.data.token}`
             localStorage.setItem('token', response.data.token)

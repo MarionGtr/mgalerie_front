@@ -23,7 +23,7 @@ const Signin = () => {
 
         try {
             const response = await UserService.signin(user)
-            toast.success("Inscription réussie!")
+            toast.success("Inscription réussie !")
             navigate('/profil')
             // console.log(response)
         } catch (error) {
