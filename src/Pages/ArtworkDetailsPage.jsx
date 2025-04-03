@@ -1,12 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import ArtworkService from "../Services/ArtworkService";
 import CommentService from "../services/CommentService";
 import config from "../config/url";
 import AuthContext from "../Context/AuthContext";
 import AuthService from "../Services/AuthService";
 import { Button, FloatingLabel } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
+import ArtworkService from "../services/ArtworkService";
 
 
 const ArtworkDetailsPage = () => {
@@ -28,8 +28,6 @@ const ArtworkDetailsPage = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-
-
 
     const fetchArtworkByID = async () => {
         try {
@@ -57,6 +55,7 @@ const ArtworkDetailsPage = () => {
         }
         if (newComment.trim() === "") {
             console.error("Le commentaire est vide !");
+            alert("Le commentaire est vide !");
             return;
         }
 
@@ -79,7 +78,7 @@ const ArtworkDetailsPage = () => {
                 username: user.username
             };
 
-            setComments([newCommentData, ...comments]);
+            setComments((prevComments) => [newCommentData, ...prevComments]);
             setNewComment("");
         } catch (error) {
             console.error("Erreur lors de l'ajout du commentaire :", error.response?.data || error);
@@ -180,7 +179,7 @@ const ArtworkDetailsPage = () => {
                                 style={{ height: '200px' }}
                             />
                         </FloatingLabel>
-                        <Button variant="light" onClick={handleAddComment}>Envoyer</Button>
+                        <Button className="btn-form" onClick={handleAddComment}>Envoyer</Button>
                     </div>
                 )}
 

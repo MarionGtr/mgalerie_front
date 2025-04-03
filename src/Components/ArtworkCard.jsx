@@ -25,6 +25,7 @@ function ArtworkCard({ artwork, onClick, onUnlike }) {
         }
     };
 
+    
     const handleLikeClick = async (e) => {
         e.stopPropagation();
     

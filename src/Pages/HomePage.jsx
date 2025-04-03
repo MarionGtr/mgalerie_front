@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import StyleService from "../Services/StyleService";
 import { useNavigate } from "react-router-dom";
 import ArtworkCard from "../Components/ArtworkCard";
-import ArtworkService from "../Services/ArtworkService";
+import ArtworkService from "../services/ArtworkService";
 
 const HomePage = () => {
   const [styles, setStyles] = useState([]);
@@ -19,6 +19,7 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    
     const fetchStyle = async () => {
       try {
         const response = await StyleService.allStyle();

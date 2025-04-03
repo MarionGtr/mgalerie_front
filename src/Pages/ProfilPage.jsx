@@ -7,16 +7,13 @@ import { Button } from "react-bootstrap";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CommentService from "../services/CommentService";
-import AuthService from "../Services/AuthService";
 
 const ProfilPage = () => {
     const { user: authenticatedUser, isAuthenticated } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [likedArtworks, setLikedArtworks] = useState([]);
     const [userComments, setUserComments] = useState([]);
-    const [updatedUser, setUpdatedUser] = useState(AuthService.getMailUser());
     const navigate = useNavigate();
-
 
     const fetchUser = async () => {
         try {
@@ -37,11 +34,10 @@ const ProfilPage = () => {
     };
 
     const fetchUserComments = async () => {
-        const currentUser = AuthService.getMailUser();
-        if (currentUser && currentUser.id) {
-            console.log("ID Utilisateur connecté : ", currentUser.id);
+        if (authenticatedUser && authenticatedUser.id) {
+            console.log("ID Utilisateur connecté : ", authenticatedUser.id);
             try {
-                const response = await CommentService.getUsersComments(currentUser.id);
+                const response = await CommentService.getUsersComments(authenticatedUser.id);
                 console.log("Réponse API : ", response.data);
                 setUserComments(response.data);
             } catch (error) {
@@ -56,15 +52,14 @@ const ProfilPage = () => {
         setLikedArtworks((prev) => prev.filter((artwork) => artwork.id_artwork !== artworkId));
     };
 
-
     useEffect(() => {
         fetchUser();
-        if (isAuthenticated || updatedUser.id) {
+        if (isAuthenticated && authenticatedUser?.id) {
             fetchLikedArtworks();
             fetchUserComments();
         }
-    }, [isAuthenticated, updatedUser]);
-
+    }, [isAuthenticated, authenticatedUser]);
+    
     return (
         <div className="profil-body">
             <div className="profil-info">
@@ -106,7 +101,6 @@ const ProfilPage = () => {
                 ) : (
                     <p>Aucune œuvre likée.</p>
                 )}
-
             </div>
         </div>
     );

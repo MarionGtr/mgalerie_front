@@ -24,8 +24,6 @@ const UserPage = () => {
         }
     };
 
-
-
     const handleChange = (e) => {
         setTempUser({ ...tempUser, [e.target.name]: e.target.value });
     };
@@ -64,7 +62,7 @@ const UserPage = () => {
 
     useEffect(() => {
         fetchUser();
-        setUserRole(AuthService.getRoleUser());  // Met à jour le rôle après récupération du user
+        setUserRole(AuthService.getRoleUser());
     }, [isAuthenticated]);
 
     return <>

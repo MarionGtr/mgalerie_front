@@ -78,7 +78,6 @@ const AdminPage = () => {
                 await ArtworkService.addArtwork(formData);
                 alert("Œuvre ajoutée avec succès");
             }
-            handleUpload();
             loadArtworks();
             resetForm();
         } catch (error) {

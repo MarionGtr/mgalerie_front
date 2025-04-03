@@ -17,8 +17,8 @@ function getMailUser() {
         const user = {
             email: decodedToken.email,
             id: decodedToken.id,
-            role: decodedToken.role
-
+            role: decodedToken.role,
+            username: decodedToken.username
         };
         localStorage.setItem("user", JSON.stringify(user)); // Stocke l'utilisateur connecté
         return user;
